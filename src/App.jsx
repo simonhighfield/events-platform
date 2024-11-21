@@ -5,6 +5,7 @@ import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
 import { supabase } from './supabaseClient'
 import { createSupabaseSession } from './createSupabaseSession'
+import { handleSignOut } from './handleSignOut'
 
 function App() {
   const [session, setSession] = useState(null)
@@ -14,10 +15,15 @@ function App() {
   }, [])
 
   if (!session) {
-    return (<Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} />)
+    return (<Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }}/>)
   }
   else {
-    return (<div>Logged in!</div>)
+    return (
+      <>
+        <div>Logged in!</div>
+        <button onClick={handleSignOut}>sign out</button>
+      </>
+    )
   }
 }
 
