@@ -55,6 +55,7 @@ export default function Login() {
                     onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
+                {!hasAccount && password.length < 6 ? <span>password must be 6 or more characters </span>: null}
                 <div>
                     <button disabled={loading}>
                     {loading ? <span>Loading</span> : <span>{hasAccount ? "Sign in" : "Sign up"}</span>}
