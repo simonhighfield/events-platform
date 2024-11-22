@@ -5,27 +5,35 @@ export default function Login() {
     const [loading, setLoading] = useState(false)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [hasAccount, setHasAccount] = useState(true)
 
     const handleLogin = async (event) => {
         event.preventDefault()
         setLoading(true)
         
-        const { error } = await supabase.auth.signInWithPassword({ 
-            email: email,
-            password: password
-        })
+        if (hasAccount) {
+            const { error } = await supabase.auth.signInWithPassword({ 
+                email: email,
+                password: password
+            })
+            if (error) {
+                alert(error.error_description || error.message)
+            } 
+        } else {
+            console.log('create account');
+        }
 
-        if (error) {
-            alert(error.error_description || error.message)
-        } 
-        
         setLoading(false)
     }
 
+    function toggleHasAccount() {
+        setHasAccount (!hasAccount)
+        setPassword ('')
+    }
 
     return (
         <>
-            <p className="description">Sign in with your email below</p>
+            <p className="description">{hasAccount ? "Sign in with your email below" : "Sign up with your email below"}</p>
             <form onSubmit={handleLogin}>
                 <div>
                     <input
@@ -49,11 +57,11 @@ export default function Login() {
                 </div>
                 <div>
                     <button disabled={loading}>
-                    {loading ? <span>Loading</span> : <span>Login</span>}
+                    {loading ? <span>Loading</span> : <span>{hasAccount ? "Sign in" : "Sign up"}</span>}
                     </button>
                 </div>
             </form>
-            <button>Don't have an account? Create one here</button>
+            <button onClick={toggleHasAccount}>{hasAccount ? "Don't have an account? Create one here" : "Have an account already? Log in here"}</button>
         </>
     )
 }
