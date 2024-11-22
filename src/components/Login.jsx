@@ -2,28 +2,28 @@ import { useState } from 'react'
 import { supabase } from '../supabaseClient'
 
 export default function Login() {
-  const [loading, setLoading] = useState(false)
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+    const [loading, setLoading] = useState(false)
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
+    const handleLogin = async (event) => {
+        event.preventDefault()
+        setLoading(true)
+        
+        const { error } = await supabase.auth.signInWithPassword({ 
+            email: email,
+            password: password
+        })
+
+        if (error) {
+            alert(error.error_description || error.message)
+        } 
+        
+        setLoading(false)
+    }
 
 
-  const handleLogin = async (event) => {
-    event.preventDefault()
-    setLoading(true)
-    
-    await supabase.auth.signInWithPassword({ 
-        email: email,
-        password: password
-    })
-
-    if (error) {
-      alert(error.error_description || error.message)
-    } 
-    
-    setLoading(false)
-  }
-
-  return (
+    return (
         <>
             <p className="description">Sign in with your email below</p>
             <form onSubmit={handleLogin}>
@@ -53,6 +53,7 @@ export default function Login() {
                     </button>
                 </div>
             </form>
+            <button>Don't have an account? Create one here</button>
         </>
     )
 }
