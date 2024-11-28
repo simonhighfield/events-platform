@@ -20,7 +20,16 @@ export default function Login() {
                 alert(error.error_description || error.message)
             } 
         } else {
-            console.log('create account');
+            const { data, error } = await supabase.auth.signUp({
+                email: email,
+                password: password,
+            })
+            if (data) {
+                console.log('signed up user: ', data.user.id);
+            }
+            if (error) {
+                alert(error.error_description || error.message)
+            }
         }
 
         setLoading(false)
@@ -62,7 +71,7 @@ export default function Login() {
                     </button>
                 </div>
             </form>
-            <button onClick={toggleHasAccount}>{hasAccount ? "Don't have an account? Create one here" : "Have an account already? Log in here"}</button>
+            <button onClick={toggleHasAccount}>{hasAccount ? "Don't have an account? Create one here" : "Have an account already? Log in here"}</button>            
         </>
     )
 }
