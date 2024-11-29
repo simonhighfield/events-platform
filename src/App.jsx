@@ -1,35 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import './index.css'
 import './App.css'
+import { useState, useEffect } from 'react'
+import { Auth } from '@supabase/auth-ui-react'
+import { ThemeSupa } from '@supabase/auth-ui-shared'
+import { supabase } from './utils/supabaseClient'
+import { createSupabaseSession } from './utils/createSupabaseSession'
+import { handleSignOut } from './utils/handleSignOut'
+import { addCurrentUserToPublicUserProfiles } from './utils/addCurrentUserToPublicUserProfiles'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [session, setSession] = useState(null)
+  
+  useEffect(() => {
+    return createSupabaseSession(setSession)
+  }, [])
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+  if (!session) {
+    return (<Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} providers={[]}/>)
+  } else {
+    return (
+      <>
+        <div>Logged in!</div>
+        <button onClick={handleSignOut}>sign out</button>
+        <button onClick={() => addCurrentUserToPublicUserProfiles(session)}>add user to publicprofiles</button>
+      </>
+    )
+  }
 }
 
 export default App
