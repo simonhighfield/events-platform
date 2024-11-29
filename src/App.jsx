@@ -6,7 +6,6 @@ import { ThemeSupa } from '@supabase/auth-ui-shared'
 import { supabase } from './utils/supabaseClient'
 import { createSupabaseSession } from './utils/createSupabaseSession'
 import { handleSignOut } from './utils/handleSignOut'
-import Login from './components/Login'
 import { addCurrentUserToPublicUserProfiles } from './utils/addCurrentUserToPublicUserProfiles'
 
 function App() {
@@ -17,10 +16,8 @@ function App() {
   }, [])
 
   if (!session) {
-    // return (<Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} providers={[]}/>)
-    return (<Login/>)
-  }
-  else {
+    return (<Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} providers={[]}/>)
+  } else {
     return (
       <>
         <div>Logged in!</div>
