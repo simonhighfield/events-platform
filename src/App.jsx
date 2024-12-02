@@ -10,18 +10,20 @@ import HomePage from './components/HomePage';
 import LoginPage from './components/LoginPage';
 import NoPage from './components/NoPage';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { SessionContext } from './Contexts'
+import { SessionContext, ProfileContext } from './Contexts'
 
 function App() {
   const [session, setSession] = useState(null)
+  const [profile, setProfile] = useState(null)
   
   useEffect(() => {    
-    return monitorSupabaseSession(setSession)
+    return monitorSupabaseSession(setSession, setProfile)
   }, [])
 
   return (
     <>
       <SessionContext.Provider value={{session}}>
+      <ProfileContext.Provider value={{profile}}>
         <BrowserRouter>
           <NavBar/>
           <Routes>
@@ -31,6 +33,7 @@ function App() {
           </Routes>
           <Footer/>
         </BrowserRouter>
+      </ProfileContext.Provider>
       </SessionContext.Provider>
     </>    
   )
