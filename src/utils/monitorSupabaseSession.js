@@ -9,7 +9,6 @@ export function monitorSupabaseSession(setSession, setProfile) {
 
       if (session) {
         fetchProfileById(session.user.id).then((profile) => {
-          console.log('line 12', profile);
           setProfile(profile)
         })
       }
@@ -22,9 +21,10 @@ export function monitorSupabaseSession(setSession, setProfile) {
 
       if (_event === 'SIGNED_IN' && session) {
         fetchProfileById(session.user.id).then((profile) => {
-          console.log('sign in', profile);
           setProfile(profile)
         })
+      } else if (_event === 'SIGNED_OUT') {
+        setProfile(null)
       }
     });
 

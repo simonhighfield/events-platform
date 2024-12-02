@@ -10,7 +10,7 @@ export default function NavBar () {
             <h1>NavBar.jsx</h1>
             <Link to={`/`}>Home</Link><span> </span>
             <Link to={`login`}>login</Link>
-            {profile ? (<p>signed in as {profile.username}</p>) : null}
+            {profile ? (<p>signed in as {profile.username}</p>) : <p>not signed in</p>}
         </nav>
     )
 }
