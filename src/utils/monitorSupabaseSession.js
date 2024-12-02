@@ -13,7 +13,12 @@ export function monitorSupabaseSession(setSession) {
       setSession(session);
 
       if (_event === 'SIGNED_IN') {
-        console.log('signed in');
+        supabase.from('profiles').select().eq('id', session.user.id).then(({ data }) => {
+          console.log(data);
+        })
+        .catch(({ error }) => {
+          console.log(error);
+        })
       }
     });
 
