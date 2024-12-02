@@ -1,7 +1,7 @@
 import './index.css'
 import './App.css'
 import { useState, useEffect } from 'react'
-import { createSupabaseSession } from './utils/createSupabaseSession'
+import { monitorSupabaseSession } from './utils/monitorSupabaseSession'
 import { handleSignOut } from './utils/handleSignOut'
 import { addCurrentUserToPublicUserProfiles } from './utils/addCurrentUserToPublicUserProfiles'
 import NavBar from './components/NavBar';
@@ -16,7 +16,7 @@ function App() {
   const [session, setSession] = useState(null)
   
   useEffect(() => {    
-    return createSupabaseSession(setSession)
+    return monitorSupabaseSession(setSession)
   }, [])
 
   return (
