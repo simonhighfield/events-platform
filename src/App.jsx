@@ -22,15 +22,15 @@ function App() {
   return (
     <>
       <SessionContext.Provider value={{session}}>
-        <NavBar/>
         <BrowserRouter>
+          <NavBar/>
           <Routes>
             <Route path='/' element={<HomePage/>} />
             <Route path="login" element={<LoginPage/>} />
             <Route path="*" element={<NoPage/>} />
           </Routes>
+          <Footer/>
         </BrowserRouter>
-        <Footer/>
       </SessionContext.Provider>
     </>    
   )
