@@ -11,6 +11,10 @@ export function monitorSupabaseSession(setSession) {
   return (function subscribeToSessionChanges() {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
+
+      if (_event === 'SIGNED_IN') {
+        console.log('signed in');
+      }
     });
 
     return () => subscription.unsubscribe();
