@@ -1,7 +1,7 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { SessionContext } from '../Contexts'
 import SessionId from './SessionId';
-import fetchSkiddleEvents from '../utils/fetchSkiddleEvents';
+import getAllEvents from '../utils/getAllEvents';
 
 export default function HomePage () {
 
@@ -9,7 +9,7 @@ export default function HomePage () {
         <>
             <h1>HomePage.jsx</h1>
             <SessionId/>
-            <button onClick={fetchSkiddleEvents}>fetch skiddle events</button>
+            <button onClick={getAllEvents}>fetch skiddle events</button>
         </>
     )
 }

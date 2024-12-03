@@ -1,14 +1,8 @@
 import axios from "axios";
 
-export default function fetchSkiddleEvents () {
+export default function fetchSkiddleEvents ({ latitude, longitude, radius, limit, eventcode }) {
     const skiddleApiKey = import.meta.env.VITE_SKIDDLE_KEY
-    const latitude = 53.4839
-    const longitude = -2.446
-    const radius = 10
-    const limit = 10
-    const eventcode = 'CLUB';
-
-
+    
     return axios.get(`https://www.skiddle.com/api/v1/events/search/?api_key=${skiddleApiKey}/&`,
         { params: {
                 latitude,
@@ -16,12 +10,15 @@ export default function fetchSkiddleEvents () {
                 radius,
                 eventcode,
                 limit,
-                description:true
+                description: true
             },
         }
     )
     .then(({ data }) => {
-        console.log(data);
-        // return data.results;
+        const events = data.results
+        return events
+    })
+    .catch((error) => {
+        console.log(error);
     });
 }
