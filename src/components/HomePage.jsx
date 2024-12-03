@@ -6,8 +6,11 @@ import getAllEvents from '../utils/getAllEvents';
 export default function HomePage () {
 
     function handleGetAllEvents () {
-        getAllEvents().then((events) => {
-            console.log(events);
+        getAllEvents()
+        .then((events) => {
+        })
+        .catch((error) => {
+            window.alert(error.message)
         })
     }
 

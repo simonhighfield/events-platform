@@ -19,6 +19,6 @@ export default function fetchSkiddleEvents ({ latitude, longitude, radius, limit
         return events
     })
     .catch((error) => {
-        console.log(error);
+        return Promise.reject(error)
     });
 }
