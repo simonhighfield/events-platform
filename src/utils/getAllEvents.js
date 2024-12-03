@@ -10,7 +10,7 @@ export default function getAllEvents() {
     }
 
     return fetchSkiddleEvents(skiddleParamsForClubEventsInManchester).then((events) => {
-        console.log(events);
         return events
     })
+    
 }

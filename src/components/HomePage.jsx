@@ -5,11 +5,17 @@ import getAllEvents from '../utils/getAllEvents';
 
 export default function HomePage () {
 
+    function handleGetAllEvents () {
+        getAllEvents().then((events) => {
+            console.log(events);
+        })
+    }
+
     return(
         <>
             <h1>HomePage.jsx</h1>
             <SessionId/>
-            <button onClick={getAllEvents}>fetch skiddle events</button>
+            <button onClick={handleGetAllEvents}>get all events</button>
         </>
     )
 }
