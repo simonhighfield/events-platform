@@ -1,13 +1,13 @@
 import { useContext, useState } from 'react'
 import { SessionContext } from '../Contexts'
 import SessionId from './SessionId';
-import getAllEvents from '../utils/fetchAllEvents';
+import fetchAllEvents from '../utils/fetchAllEvents';
 import skiddleParamsForClubEventsInManchester from '../data/skiddleParamsForClubEventsInManchester';
 
 export default function HomePage () {
 
-    function handleGetAllEvents () {
-        getAllEvents(skiddleParamsForClubEventsInManchester)
+    function handleFetchAllEvents () {
+        fetchAllEvents(skiddleParamsForClubEventsInManchester)
         .then((events) => {
         })
         .catch((error) => {
@@ -19,7 +19,7 @@ export default function HomePage () {
         <>
             <h1>HomePage.jsx</h1>
             <SessionId/>
-            <button onClick={handleGetAllEvents}>get all events</button>
+            <button onClick={handleFetchAllEvents}>get all events</button>
         </>
     )
 }
