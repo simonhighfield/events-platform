@@ -1,15 +1,8 @@
 import fetchSkiddleEvents from "./fetchSkiddleEvents";
 
-export default function getAllEvents() {
-    const skiddleParamsForClubEventsInManchester = {
-        latitude: 53.4839,
-        longitude: -2.446,
-        radius: 10,
-        limit: 100,
-        eventcode: 'CLUB'
-    }
+export default function fetchAllEvents(skiddleSearchParameters) {
 
-    return fetchSkiddleEvents(skiddleParamsForClubEventsInManchester)
+    return fetchSkiddleEvents(skiddleSearchParameters)
     .then((events) => {
         if (!events || events.length === 0) {
             return Promise.reject(new Error("No events found"));
