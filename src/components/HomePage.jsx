@@ -28,7 +28,7 @@ export default function HomePage () {
                 console.log('deleted event: ', event);
             })
             .catch((error) => {
-                console.log(error.message)
+                console.log(error)
             })
         })
         
