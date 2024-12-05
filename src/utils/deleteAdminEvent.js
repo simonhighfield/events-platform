@@ -1,15 +1,17 @@
 import { supabase } from "./supabaseClient";
 
-export default async function deleteAdminEvent () {
+export default async function deleteAdminEvent (eventId) {
     const { data, error } = await supabase
       .from('admin_events')
       .delete()
-      .eq('id', eventId);
-    
+      .eq('admin_event_id', eventId)
+      .select();
+    if (data) {
+      const event = data[0]
+      return {event}
+    } 
     if (error) {
-      console.error('Error deleting event:', error);
-    } else {
-      console.log('Deleted event:', data);
+      return Promise.reject(error)
     }
 }
 
