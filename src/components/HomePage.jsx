@@ -21,7 +21,7 @@ export default function HomePage () {
     function handlePostAdminEvent() {
         paramsForTestAdminEvent.admin_id = profile.id
         postAdminEvent(paramsForTestAdminEvent)
-        .then((event)=> {
+        .then(({event})=> {
             console.log(event);
         })
         
