@@ -15,7 +15,8 @@ export async function postAdminEvent({ admin_id, event_name, event_date, locatio
         })
         .select();
     if (data) {
-        return data
+        const event = data[0]
+        return {event}
     }
     if (error) {
         console.error(error.error_description || error.message)
