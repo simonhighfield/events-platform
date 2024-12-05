@@ -19,8 +19,8 @@ export default function HomePage () {
     }
 
     function handlePostAdminEvent() {
-        paramsForTestAdminEvent.admin_id = profile.id        
-        console.log(paramsForTestAdminEvent);
+        paramsForTestAdminEvent.admin_id = profile.id
+        postAdminEvent(paramsForTestAdminEvent);
     }
 
     return(
