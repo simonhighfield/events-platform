@@ -6,6 +6,7 @@ import skiddleParamsForClubEventsInManchester from '../data/skiddleParamsForClub
 import { postAdminEvent } from '../utils/postAdminEvent';
 import paramsForTestAdminEvent from '../data/paramsForTestAdminEvent';
 import deleteAdminEventById from '../utils/deleteAdminEventById';
+import fetchAdminEventById from '../utils/fetchAdminEventById';
 
 export default function HomePage () {
     const { profile } = useContext(ProfileContext)
@@ -22,13 +23,12 @@ export default function HomePage () {
     function handlePostAdminEvent() {
         paramsForTestAdminEvent.admin_id = profile.id
         postAdminEvent(paramsForTestAdminEvent)
-        .then(({event})=> {
-            deleteAdminEventById(event.admin_event_id)
+        .then(({ event })=> {
+            fetchAdminEventById(event.admin_event_id)
             .then(({ event }) => {
-                console.log('deleted event: ', event);
             })
             .catch(({ error }) => {
-                console.log(error)
+                console.log(error);
             })
         })
         
