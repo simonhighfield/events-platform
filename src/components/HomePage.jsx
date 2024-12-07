@@ -7,7 +7,7 @@ import { postAdminEvent } from '../utils/postAdminEvent';
 import paramsForTestAdminEvent from '../data/paramsForTestAdminEvent';
 import deleteAdminEventById from '../utils/deleteAdminEventById';
 import fetchAdminEventById from '../utils/fetchAdminEventById';
-import fetchAdminEventsByDate from '../utils/fetchAdminEventsByDate';
+import fetchAdminEventsByDate from '../utils/fetchAdminEventsByDate.js';
 
 export default function HomePage () {
     const { profile } = useContext(ProfileContext)
