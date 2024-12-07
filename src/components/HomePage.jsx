@@ -7,6 +7,7 @@ import { postAdminEvent } from '../utils/postAdminEvent';
 import paramsForTestAdminEvent from '../data/paramsForTestAdminEvent';
 import deleteAdminEventById from '../utils/deleteAdminEventById';
 import fetchAdminEventById from '../utils/fetchAdminEventById';
+import fetchAdminEventsByDate from '../utils/fetchAdminEventsByDate';
 
 export default function HomePage () {
     const { profile } = useContext(ProfileContext)
@@ -24,8 +25,9 @@ export default function HomePage () {
         paramsForTestAdminEvent.admin_id = profile.id
         postAdminEvent(paramsForTestAdminEvent)
         .then(({ event })=> {
-            fetchAdminEventById(event.admin_event_id)
-            .then(({ event }) => {
+            fetchAdminEventsByDate(event.event_date)
+            .then(({ events }) => {
+                console.log(events);
             })
             .catch(({ error }) => {
                 console.log(error);
