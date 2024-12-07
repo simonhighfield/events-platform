@@ -15,8 +15,8 @@ export default function fetchSkiddleEvents ({ latitude, longitude, radius, limit
         }
     )
     .then(({ data }) => {
-        const events = data.results
-        return events
+        const skiddleEvents = data.results
+        return { skiddleEvents }
     })
     .catch((error) => {
         return Promise.reject(error)
