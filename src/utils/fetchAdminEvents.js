@@ -15,7 +15,7 @@ export default async function fetchAdminEvents(startDate, endDate, limit) {
         .lte('event_date', searchUntilDate) 
         .limit(limit)
     if (data) {
-        return { events: data }
+        return { adminEvents: data }
     }
     if (error) {
         throw { error }

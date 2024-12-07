@@ -1,12 +1,17 @@
+import fetchAdminEvents from "./fetchAdminEvents";
 import fetchSkiddleEvents from "./fetchSkiddleEvents";
 
 export default function fetchAllEvents(skiddleSearchParameters) {
 
-    return Promise.all([fetchSkiddleEvents(skiddleSearchParameters)])
-    .then(([{ skiddleEvents }]) => {
-        console.log('in Promise.All', skiddleEvents);
+    return Promise.all([
+        fetchSkiddleEvents(skiddleSearchParameters),
+        fetchAdminEvents()
+    ])
+    .then(([{ skiddleEvents }, { adminEvents}]) => {
+        console.log('in Promise.All skiddle events', skiddleEvents);
+        console.log('in Promise.All admin events', adminEvents);
 
-        const events = [...skiddleEvents]
+        const events = [...skiddleEvents,...adminEvents]
 
         return events
     })
