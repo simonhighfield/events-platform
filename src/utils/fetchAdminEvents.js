@@ -5,15 +5,14 @@ import { getDatePlusThirtyInYYYYMMDD } from "./getDatePlusThirtyInYYYYMMDD";
 export default async function fetchAdminEvents(startDate, endDate, limit) {
 
     const searchFromDate = startDate || getDateTodayInYYYYMMDD()
-    console.log('search from', searchFromDate);
 
     const searchUntilDate = endDate || getDatePlusThirtyInYYYYMMDD(searchFromDate)
-    console.log('until', searchUntilDate);
-    
 
     const { data, error } = await supabase
         .from('admin_events')
         .select()
+        .gte('event_date', searchFromDate)
+        .lte('event_date', searchUntilDate) 
         .limit(limit)
     if (data) {
         return { events: data }
