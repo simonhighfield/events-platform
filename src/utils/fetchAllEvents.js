@@ -1,5 +1,6 @@
 import fetchAdminEvents from "./fetchAdminEvents";
 import fetchSkiddleEvents from "./fetchSkiddleEvents";
+import { formatSkiddleEvents } from "./formatSkiddleEvents";
 
 export default function fetchAllEvents(skiddleSearchParameters) {
 
@@ -11,7 +12,7 @@ export default function fetchAllEvents(skiddleSearchParameters) {
         console.log('in Promise.All skiddle events', skiddleEvents);
         console.log('in Promise.All admin events', adminEvents);
 
-        const events = [...skiddleEvents,...adminEvents]
+        const events = [...formatSkiddleEvents(skiddleEvents),...adminEvents]
 
         return events
     })
