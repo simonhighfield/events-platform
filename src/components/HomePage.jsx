@@ -9,6 +9,7 @@ import deleteAdminEventById from '../utils/deleteAdminEventById';
 import fetchAdminEventById from '../utils/fetchAdminEventById';
 import fetchAdminEventsByDate from '../utils/fetchAdminEventsByDate.js';
 import fetchAdminEvents from '../utils/fetchAdminEvents.js';
+import saveEvent from '../utils/saveEvent.js';
 
 export default function HomePage () {
     const { profile } = useContext(ProfileContext)
@@ -38,12 +39,23 @@ export default function HomePage () {
         })
     }
 
+    function handleSaveEvent() {
+        saveEvent(profile)
+        .then(({ savedEvent }) => {
+            console.log(savedEvent);
+        })
+        .catch(({ error }) => {
+            console.log(error);
+        })
+    }
+
     return (
         <>
             <h1>HomePage.jsx</h1>
             <SessionId/>
             <button onClick={handleFetchAllEvents}>get all events</button>
             <button onClick={handlePostAdminEvent}>post test admin event</button>
+            <button onClick={handleSaveEvent}>save a test event</button>
         </>
     )
 }
