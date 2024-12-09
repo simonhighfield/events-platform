@@ -1,6 +1,7 @@
 import fetchAdminEvents from "./fetchAdminEvents";
 import fetchSkiddleEvents from "./fetchSkiddleEvents";
 import { formatSkiddleEvents } from "./formatSkiddleEvents";
+import { sortEventsByDate } from "./sortEventsByDate";
 
 export default function fetchAllEvents(skiddleSearchParameters) {
 
@@ -15,12 +16,7 @@ export default function fetchAllEvents(skiddleSearchParameters) {
         
         const events = [...formatSkiddleEvents(skiddleEvents),...adminEvents]
 
-        const sortedEvents = events.sort(function(eventA, eventB) {
-            const dateA = new Date (eventA.event_date)
-            const dateB = new Date (eventB.event_date)
-            const sort = dateA - dateB
-            return sort
-        })
+        const sortedEvents = sortEventsByDate(events)
 
         return sortedEvents
     })
