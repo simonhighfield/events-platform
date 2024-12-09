@@ -16,7 +16,7 @@ export default function HomePage () {
     function handleFetchAllEvents () {
         fetchAllEvents(skiddleParamsForClubEventsInManchester)
         .then((events) => {
-            console.log(events);
+            console.log('return in handle: ', events);
         })
         .catch((error) => {
             window.alert(error.message)

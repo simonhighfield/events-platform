@@ -10,6 +10,7 @@ export default function fetchAllEvents(skiddleSearchParameters) {
     ])
     .then(([{ skiddleEvents }, { adminEvents}]) => {
         console.log('in Promise.All skiddle events', skiddleEvents);
+        console.log('in Promise.All formatted skiddle events', formatSkiddleEvents(skiddleEvents));
         console.log('in Promise.All admin events', adminEvents);
 
         const events = [...formatSkiddleEvents(skiddleEvents),...adminEvents]
