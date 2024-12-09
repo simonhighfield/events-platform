@@ -18,18 +18,9 @@ export default function fetchAllEvents(skiddleSearchParameters) {
 
         const sortedEvents = sortEventsByDate(events)
 
-        return sortedEvents
+        return {events: sortedEvents}
     })
-
-    // return fetchSkiddleEvents(skiddleSearchParameters)
-    // .then((events) => {
-    //     if (!events || events.length === 0) {
-    //         return Promise.reject(new Error("No events found"));
-    //     }
-    //     return events;
-    // })
-    // .catch((error) => {
-    //     return Promise.reject(error)
-    // })
-
+    .catch((error) => {
+        throw error
+    })
 }
