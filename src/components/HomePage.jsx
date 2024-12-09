@@ -10,6 +10,7 @@ import fetchAdminEventById from '../utils/fetchAdminEventById';
 import fetchAdminEventsByDate from '../utils/fetchAdminEventsByDate.js';
 import fetchAdminEvents from '../utils/fetchAdminEvents.js';
 import saveEvent from '../utils/saveEvent.js';
+import paramsForTestSaveEvent from '../data/paramsForTestSaveEvent.js';
 
 export default function HomePage () {
     const { profile } = useContext(ProfileContext)
@@ -40,7 +41,7 @@ export default function HomePage () {
     }
 
     function handleSaveEvent() {
-        saveEvent(profile)
+        saveEvent(profile, paramsForTestSaveEvent)
         .then(({ savedEvent }) => {
             console.log(savedEvent);
         })
