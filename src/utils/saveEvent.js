@@ -2,15 +2,14 @@ import { supabase } from "./supabaseClient";
 
 export default async function saveEvent(profile, event) {
 
-    function getEventSource(event) {
+    const event_source = (function getEventSource(event) {
         if (event.admin_event_id) {
             return 'admin'
         } else if (event.skiddle_event_id) {
             return 'skiddle'
         }
-    }
-
-    const event_source = getEventSource(event)
+        return null
+    })(event)
 
     const { data, error } = await supabase
         .from('saved_events')
