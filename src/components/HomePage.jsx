@@ -36,10 +36,9 @@ export default function HomePage () {
                 console.log(error);
             })
         })
-        
     }
 
-    return(
+    return (
         <>
             <h1>HomePage.jsx</h1>
             <SessionId/>
