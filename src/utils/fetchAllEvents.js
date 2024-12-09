@@ -12,10 +12,17 @@ export default function fetchAllEvents(skiddleSearchParameters) {
         console.log('in Promise.All skiddle events', skiddleEvents);
         console.log('in Promise.All formatted skiddle events', formatSkiddleEvents(skiddleEvents));
         console.log('in Promise.All admin events', adminEvents);
-
+        
         const events = [...formatSkiddleEvents(skiddleEvents),...adminEvents]
 
-        return events
+        const sortedEvents = events.sort(function(eventA, eventB) {
+            const dateA = new Date (eventA.event_date)
+            const dateB = new Date (eventB.event_date)
+            const sort = dateA - dateB
+            return sort
+        })
+
+        return sortedEvents
     })
 
     // return fetchSkiddleEvents(skiddleSearchParameters)
