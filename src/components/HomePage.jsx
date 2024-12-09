@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react'
 import { ProfileContext, SessionContext } from '../Contexts'
 import SessionId from './SessionId';
-import fetchAllEvents from '../utils/fetchAllEvents';
+import fetchAndSortAllEvents from '../utils/fetchAndSortAllEvents.js';
 import skiddleParamsForClubEventsInManchester from '../data/skiddleParamsForClubEventsInManchester';
 import { postAdminEvent } from '../utils/postAdminEvent';
 import paramsForTestAdminEvent from '../data/paramsForTestAdminEvent';
@@ -14,7 +14,7 @@ export default function HomePage () {
     const { profile } = useContext(ProfileContext)
 
     function handleFetchAllEvents () {
-        fetchAllEvents(skiddleParamsForClubEventsInManchester)
+        fetchAndSortAllEvents(skiddleParamsForClubEventsInManchester)
         .then(({ events }) => {
             console.log('return in handle: ', events);
         })

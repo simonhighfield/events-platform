@@ -3,7 +3,7 @@ import fetchSkiddleEvents from "./fetchSkiddleEvents";
 import { formatSkiddleEvents } from "./formatSkiddleEvents";
 import { sortEventsByDate } from "./sortEventsByDate";
 
-export default function fetchAllEvents(skiddleSearchParameters) {
+export default function fetchAndSortAllEvents(skiddleSearchParameters) {
 
     return Promise.all([
         fetchSkiddleEvents(skiddleSearchParameters),
