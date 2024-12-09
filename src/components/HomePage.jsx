@@ -27,9 +27,10 @@ export default function HomePage () {
         paramsForTestAdminEvent.admin_id = profile.id
         postAdminEvent(paramsForTestAdminEvent)
         .then(({ event })=> {
+            console.log('successfully posted: ', event);
             fetchAdminEvents()
-            .then(({ events }) => {
-                console.log(events);
+            .then(({ adminEvents }) => {
+                console.log(adminEvents);
             })
             .catch(({ error }) => {
                 console.log(error);
