@@ -6,13 +6,13 @@ import skiddleParamsForClubEventsInManchester from '../data/skiddleParamsForClub
 import { postAdminEvent } from '../utils/postAdminEvent';
 import paramsForTestAdminEvent from '../data/paramsForTestAdminEvent';
 import deleteAdminEventById from '../utils/deleteAdminEventById';
-import fetchAdminEventById from '../utils/fetchAdminEventById';
 import fetchAdminEventsByDate from '../utils/fetchAdminEventsByDate.js';
 import fetchAdminEvents from '../utils/fetchAdminEvents.js';
 import saveEvent from '../utils/saveEvent.js';
 import paramsForTestSaveEvent from '../data/paramsForTestSaveEvent.js';
 import deleteSavedEventById from '../utils/deleteSavedEventById.js';
 import fetchSavedEventsByUserId from '../utils/fetchSavedEventsByUserId.js';
+import { generateSavedEvents } from '../utils/generateSavedEvents.js';
 
 export default function HomePage () {
     const { profile } = useContext(ProfileContext)
@@ -49,9 +49,13 @@ export default function HomePage () {
             fetchSavedEventsByUserId(profile.id)
             .then(({ savedEvents }) => {
                 console.log('saved events: ', savedEvents);
-                console.log(generateSavedEvents(savedEvents))
-                deleteSavedEventById(savedEvents[0].id)
-                .then(({ deletedEvent }) =>{
+
+                Promise.all([
+                    generateSavedEvents(savedEvents), 
+                    deleteSavedEventById(savedEvents[0].id)
+                ])
+                .then (([generatedEvents, { deletedEvent }]) => {
+                    console.log('generatedEvents: ', generatedEvents)
                     console.log('deleted saved event: ', deletedEvent);
                 })
             })
@@ -70,17 +74,4 @@ export default function HomePage () {
             <button onClick={handleSaveEvent}>save a test event</button>
         </>
     )
-}
-
-function generateSavedEvents(savedEvents) {
-    return savedEvents.map(event => {
-        if (event.source === 'admin') {
-            console.log('admin');
-            return 'admin';
-        } else if (event.source === 'skiddle') {
-            console.log('skiddle');
-            return 'skiddle';
-        }
-        return null
-    });
 }
