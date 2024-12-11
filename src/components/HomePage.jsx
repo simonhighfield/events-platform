@@ -43,7 +43,7 @@ export default function HomePage () {
     function handleSaveEvent() {
         saveEvent(profile, paramsForTestSaveEvent)
         .then(({ savedEvent }) => {
-            console.log(savedEvent);
+            console.log('successfully saved: ', savedEvent);
         })
         .catch(({ error }) => {
             console.log(error);
