@@ -11,10 +11,18 @@ export function generateSavedEvents(savedEvents) {
             }
             if (error) {
                 console.error('Error fetching admin event:', error);
-                throw { error };
+                throw error;
             }
         } else if (savedEvent.source === 'skiddle') {
-            fetchSkiddleEventById(savedEvent.skiddle_event_id)
+            const { event, error } = await fetchSkiddleEventById(savedEvent.skiddle_event_id)            
+            if (event) {
+                console.log('fetched this event', event);
+                return event;
+            }
+            if (error) {
+                console.error('Error fetching admin event:', error);
+                throw {error};
+            }
         }
         return null;
     }));

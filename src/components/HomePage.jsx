@@ -59,6 +59,9 @@ export default function HomePage () {
                     console.log('generatedEvents: ', generatedEvents)
                     console.log('deleted saved event: ', deletedEvent);
                 })
+                .catch(({ error }) => {
+                    console.log(error.message);
+                })
             })
         })
         .catch(({ error }) => {
