@@ -1,6 +1,7 @@
 import fetchAdminEventById from "./fetchAdminEventById";
 import fetchSkiddleEventById from "./fetchSkiddleEventById";
 import formatSkiddleEvent from "./formatSkiddleEvent";
+import { sortEventsByDate } from "./sortEventsByDate";
 
 export function generateSavedEvents(savedEvents) {
     return Promise.all(savedEvents.map(async (savedEvent) => {
@@ -22,5 +23,8 @@ export function generateSavedEvents(savedEvents) {
             }
         }
         return null;
-    }));
+    }))
+    .then((generatedEvents) => {    
+        return sortEventsByDate(generatedEvents)
+    });
 }
