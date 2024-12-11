@@ -44,7 +44,7 @@ export default function HomePage () {
     }
 
     function handleSaveEvent() {
-        saveEvent(profile, paramsForTestSaveSkiddleEvent)
+        saveEvent(profile, paramsForTestSaveEvent)
         .then(({ savedEvent }) => {
             console.log('successfully saved: ', savedEvent);
             fetchSavedEventsByUserId(profile.id)
@@ -75,7 +75,7 @@ export default function HomePage () {
             <SessionId/>
             <button onClick={handleFetchAllEvents}>get all events</button>
             <button onClick={handlePostAdminEvent}>post test admin event</button>
-            <button onClick={handleSaveEvent}>save a test event</button>
+            <button onClick={handleSaveEvent}>save a test event, fetch all, and delete the just saved one</button>
         </>
     )
 }
