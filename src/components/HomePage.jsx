@@ -13,6 +13,7 @@ import paramsForTestSaveEvent from '../data/paramsForTestSaveEvent.js';
 import deleteSavedEventById from '../utils/deleteSavedEventById.js';
 import fetchSavedEventsByUserId from '../utils/fetchSavedEventsByUserId.js';
 import { generateSavedEvents } from '../utils/generateSavedEvents.js';
+import paramsForTestSaveSkiddleEvent from '../data/paramsForTestSaveSkiddleEvent';
 
 export default function HomePage () {
     const { profile } = useContext(ProfileContext)
@@ -43,7 +44,7 @@ export default function HomePage () {
     }
 
     function handleSaveEvent() {
-        saveEvent(profile, paramsForTestSaveEvent)
+        saveEvent(profile, paramsForTestSaveSkiddleEvent)
         .then(({ savedEvent }) => {
             console.log('successfully saved: ', savedEvent);
             fetchSavedEventsByUserId(profile.id)

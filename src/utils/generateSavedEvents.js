@@ -1,4 +1,5 @@
 import fetchAdminEventById from "./fetchAdminEventById";
+import fetchSkiddleEventById from "./fetchSkiddleEventById";
 
 export function generateSavedEvents(savedEvents) {
     return Promise.all(savedEvents.map(async (savedEvent) => {
@@ -13,8 +14,7 @@ export function generateSavedEvents(savedEvents) {
                 throw { error };
             }
         } else if (savedEvent.source === 'skiddle') {
-            console.log('skiddle');
-            return 'skiddle';
+            fetchSkiddleEventById(savedEvent.skiddle_event_id)
         }
         return null;
     }));
