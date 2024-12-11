@@ -12,6 +12,7 @@ import fetchAdminEvents from '../utils/fetchAdminEvents.js';
 import saveEvent from '../utils/saveEvent.js';
 import paramsForTestSaveEvent from '../data/paramsForTestSaveEvent.js';
 import deleteSavedEventById from '../utils/deleteSavedEventById.js';
+import fetchSavedEventsByUserId from '../utils/fetchSavedEventsByUserId.js';
 
 export default function HomePage () {
     const { profile } = useContext(ProfileContext)
@@ -45,9 +46,13 @@ export default function HomePage () {
         saveEvent(profile, paramsForTestSaveEvent)
         .then(({ savedEvent }) => {
             console.log('successfully saved: ', savedEvent);
-            deleteSavedEventById(savedEvent.id)
-            .then(({ deletedEvent }) =>{
-                console.log('deleted saved event: ', deletedEvent);
+            fetchSavedEventsByUserId(profile.id)
+            .then(({ savedEvents }) => {
+                console.log('saved events: ', savedEvents);
+                deleteSavedEventById(savedEvents[0].id)
+                .then(({ deletedEvent }) =>{
+                    console.log('deleted saved event: ', deletedEvent);
+                })
             })
         })
         .catch(({ error }) => {
