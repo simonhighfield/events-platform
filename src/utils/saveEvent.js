@@ -7,7 +7,7 @@ export default async function saveEvent(profile, event) {
         .from('saved_events')
         .insert({
             user_id: profile.id,
-            event_source: getEventSource(event),
+            source: getEventSource(event),
             admin_event_id: event.admin_event_id || null,
             skiddle_event_id: event.skiddle_event_id || null 
         })

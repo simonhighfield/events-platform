@@ -49,6 +49,7 @@ export default function HomePage () {
             fetchSavedEventsByUserId(profile.id)
             .then(({ savedEvents }) => {
                 console.log('saved events: ', savedEvents);
+                console.log(generateSavedEvents(savedEvents))
                 deleteSavedEventById(savedEvents[0].id)
                 .then(({ deletedEvent }) =>{
                     console.log('deleted saved event: ', deletedEvent);
@@ -69,4 +70,17 @@ export default function HomePage () {
             <button onClick={handleSaveEvent}>save a test event</button>
         </>
     )
+}
+
+function generateSavedEvents(savedEvents) {
+    return savedEvents.map(event => {
+        if (event.source === 'admin') {
+            console.log('admin');
+            return 'admin';
+        } else if (event.source === 'skiddle') {
+            console.log('skiddle');
+            return 'skiddle';
+        }
+        return null
+    });
 }
