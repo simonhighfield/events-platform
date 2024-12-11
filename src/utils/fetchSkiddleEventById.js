@@ -4,7 +4,7 @@ export default function fetchSkiddleEventById (id) {
     const skiddleApiKey = import.meta.env.VITE_SKIDDLE_KEY
     
     return axios.get(`https://www.skiddle.com/api/v1/events/${id}/?api_key=${skiddleApiKey}/&`,{})
-    .then(({ data }) => {        
+    .then(({ data }) => {
         return {event: data.results}
     })
     .catch((error) => {
