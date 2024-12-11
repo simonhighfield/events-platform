@@ -15,10 +15,10 @@ export default function fetchSkiddleEvents ({ latitude, longitude, radius, limit
         }
     )
     .then(({ data }) => {
-        const skiddleEvents = data.results
-        return { skiddleEvents }
+        return {skiddleEvents: data.results}
     })
     .catch((error) => {
+        console.error('error fetching skiddle events')
         return Promise.reject(error)
     });
 }

@@ -1,0 +1,12 @@
+const paramsForTestSaveSkiddleEvent = {
+    contributors: Array [ "Mungos Hi Fi" ],
+    created_at: null,
+    description: "The updisputed dons of Scottish Dub (and more) return for another victorious lap round Ramona  - 3 hours of best Reggae, 140 & more",
+    event_date: "2024-12-11T20:00:00+00:00",
+    event_name: "RAMONA RADIO RAVE x HIT & RUN: MUNGO's Hi-Fi - FREE Tickets",
+    event_photo_url: "https://d31fr2pwly4c4s.cloudfront.net/f/d/4/1860273_19043519_RAMONA-RADIO-RAVE-x-HIT---RUN--MUNGO-s-Hi-Fi---FREE-Tickets_1024.jpg",
+    location: "Ramona",
+    skiddle_event_id: "40358100",
+}
+
+export default paramsForTestSaveSkiddleEvent

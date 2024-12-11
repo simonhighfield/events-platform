@@ -18,6 +18,6 @@ export default async function fetchAdminEvents(startDate, endDate, limit) {
         return { adminEvents: data }
     }
     if (error) {
-        throw { error }
+        throw error 
     }
 }
