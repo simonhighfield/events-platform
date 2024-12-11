@@ -1,13 +1,13 @@
 import { supabase } from "./supabaseClient";
 
-export default async function deleteAdminEventById(eventId) {
+export default async function deleteSavedEventById(savedEventId) {
   const { data, error } = await supabase
-    .from('admin_events')
+    .from('saved_events')
     .delete()
-    .eq('admin_event_id', eventId)
+    .eq('id', savedEventId)
     .select();
   if (data) {
-    return { event : data[0]}
+    return { deletedEvent : data[0]}
   }
   if (error) {
     throw {error}
