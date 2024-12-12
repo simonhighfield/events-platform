@@ -14,6 +14,7 @@ import deleteSavedEventById from '../utils/deleteSavedEventById.js';
 import fetchSavedEventsByUserId from '../utils/fetchSavedEventsByUserId.js';
 import { generateSavedEvents } from '../utils/generateSavedEvents.js';
 import paramsForTestSaveSkiddleEvent from '../data/paramsForTestSaveSkiddleEvent';
+import connectGoogleAccount from '../utils/connectGoogleAccount.js';
 
 export default function HomePage () {
     const { profile } = useContext(ProfileContext)
@@ -69,6 +70,10 @@ export default function HomePage () {
         })
     }
 
+    function handleGoogleSignIn() {
+        connectGoogleAccount()
+    }
+
     return (
         <>
             <h1>HomePage.jsx</h1>
@@ -76,6 +81,7 @@ export default function HomePage () {
             <button onClick={handleFetchAllEvents}>get all events</button>
             <button onClick={handlePostAdminEvent}>post test admin event</button>
             <button onClick={handleSaveEvent}>save a test event, fetch all, and delete the just saved one</button>
+            <button onClick={handleGoogleSignIn}>connect to google</button>
         </>
     )
 }
