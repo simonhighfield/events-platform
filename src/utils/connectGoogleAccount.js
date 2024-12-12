@@ -6,10 +6,10 @@ export default async function connectGoogleAccount() {
         const user = await authInstance.signIn();
         const token = user.getAuthResponse().access_token;
 
-        console.log('Google account connected, token:', token);
+        console.log('Connected Google acccount with token: ', token);
         return {token};
     } catch (error) {
-        console.error('Error in connectGoogleAccount:', error);
+        console.error('Error in connectGoogleAccount: ', error);
         throw {error};
     }
 };
