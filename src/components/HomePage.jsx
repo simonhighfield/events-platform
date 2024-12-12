@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react'
-import { ProfileContext, SessionContext } from '../Contexts'
+import { GoogleTokenContext, ProfileContext, SessionContext } from '../Contexts'
 import SessionId from './SessionId';
 import fetchAndSortAllEvents from '../utils/fetchAndSortAllEvents.js';
 import skiddleParamsForClubEventsInManchester from '../data/skiddleParamsForClubEventsInManchester';
@@ -15,9 +15,11 @@ import fetchSavedEventsByUserId from '../utils/fetchSavedEventsByUserId.js';
 import { generateSavedEvents } from '../utils/generateSavedEvents.js';
 import paramsForTestSaveSkiddleEvent from '../data/paramsForTestSaveSkiddleEvent';
 import connectGoogleAccount from '../utils/connectGoogleAccount.js';
+import { addEventToGoogleCalendar } from '../utils/addEventToGoogleCalendar.js';
 
 export default function HomePage () {
     const { profile } = useContext(ProfileContext)
+    const { googleToken, setGoogleToken } = useContext(GoogleTokenContext)
 
     function handleFetchAllEvents () {
         fetchAndSortAllEvents(skiddleParamsForClubEventsInManchester)
@@ -70,8 +72,13 @@ export default function HomePage () {
         })
     }
 
-    function handleGoogleSignIn() {
-        connectGoogleAccount()
+    async function handleGoogleSignIn() {
+        const { token } = await connectGoogleAccount()
+        setGoogleToken(token)
+    }
+
+    function handleAddEventToGoogleCalendar() {
+        addEventToGoogleCalendar(paramsForTestAdminEvent, googleToken)
     }
 
     return (
@@ -82,6 +89,7 @@ export default function HomePage () {
             <button onClick={handlePostAdminEvent}>post test admin event</button>
             <button onClick={handleSaveEvent}>save a test event, fetch all, and delete the just saved one</button>
             <button onClick={handleGoogleSignIn}>connect to google</button>
+            <button onClick={handleAddEventToGoogleCalendar}>Add test event to google cal</button>
         </>
     )
 }
