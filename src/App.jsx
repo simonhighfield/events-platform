@@ -10,13 +10,16 @@ import HomePage from './components/HomePage';
 import LoginPage from './components/LoginPage';
 import NoPage from './components/NoPage';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { SessionContext, ProfileContext } from './Contexts'
+import { SessionContext, ProfileContext, GoogleTokenContext } from './Contexts'
+import initialiseGoogleApiClient from './utils/initialiseGoogleApiClient'
 
 function App() {
   const [session, setSession] = useState(null)
   const [profile, setProfile] = useState(null)
+  const [googleToken, setGoogleToken] = useState(null)
   
   useEffect(() => {    
+    initialiseGoogleApiClient()
     return monitorSupabaseSession(setSession, setProfile)
   }, [])
 
@@ -24,6 +27,7 @@ function App() {
     <>
       <SessionContext.Provider value={{session}}>
       <ProfileContext.Provider value={{profile}}>
+      <GoogleTokenContext.Provider value={{googleToken, setGoogleToken}}>
         <BrowserRouter>
           <NavBar/>
           <Routes>
@@ -33,6 +37,7 @@ function App() {
           </Routes>
           <Footer/>
         </BrowserRouter>
+      </GoogleTokenContext.Provider>
       </ProfileContext.Provider>
       </SessionContext.Provider>
     </>    
