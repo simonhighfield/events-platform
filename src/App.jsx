@@ -11,7 +11,7 @@ import LoginPage from './components/LoginPage';
 import NoPage from './components/NoPage';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { SessionContext, ProfileContext } from './Contexts'
-import initialiseGoogleApiClient from './utils/googleCalClient'
+import initialiseGoogleApiClient from './utils/initialiseGoogleApiClient'
 
 function App() {
   const [session, setSession] = useState(null)
