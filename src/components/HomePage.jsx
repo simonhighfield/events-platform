@@ -79,6 +79,9 @@ export default function HomePage () {
 
     function handleAddEventToGoogleCalendar() {
         addEventToGoogleCalendar(paramsForTestAdminEvent, googleToken)
+        .then(({ eventAdded }) => {
+            console.log('In handle, Event added to cal: ', eventAdded);
+        })
     }
 
     return (

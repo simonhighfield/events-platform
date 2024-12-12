@@ -1,7 +1,5 @@
-import { getDatePlusThirtyInYYYYMMDD } from "./getDatePlusThirtyInYYYYMMDD";
-
 export const addEventToGoogleCalendar = async (event, googleToken) => {
-    const { admin_id, event_name, event_date, event_end_date, location, event_photo_url, contributors, description, additional_data } = event
+    const { event_name, event_date, event_end_date, location, description } = event
         
     try {
         await gapi.client.load('calendar', 'v3');
@@ -13,11 +11,10 @@ export const addEventToGoogleCalendar = async (event, googleToken) => {
             console.log(event_date, event_end_date, temp_end_date);
         }
 
-        
         const calendarEvent = {
-            summary: 'Test',
-            location: 'Manchester',
-            description: 'The coolest party.',
+            summary: event_name,
+            location: location,
+            description,
             start: {
                 dateTime: event_date.toISOString(),
                 timeZone: 'Europe/London',
@@ -28,14 +25,14 @@ export const addEventToGoogleCalendar = async (event, googleToken) => {
             },
         };
     
-        const response = await gapi.client.calendar.events.insert({
+        const eventAdded = await gapi.client.calendar.events.insert({
             calendarId: 'primary',
             resource: calendarEvent,
         });
 
-        console.log('Event added:', response);
-        return response;
-    } catch (error) {
+        return {eventAdded};
+    } 
+    catch (error) {
         console.error('Error adding event to Google Calendar:', error);
         throw error;
     }
