@@ -9,14 +9,7 @@ export default function NavBar() {
     const { profile } = useContext(ProfileContext)
 
     return (
-        // <nav style={{backgroundColor: 'grey'}}>
-        //     <h1>NavBar.jsx</h1>
-        //     <Link to={`/`}>Home</Link><span> </span>
-        //     <Link to={`login`}>login</Link>
-        //     {profile ? (<p>signed in as {profile.username}</p>) : <p>not signed in</p>}
-        // </nav>
-
-        <Nav className="justify-content-between">
+        <Nav className="NavBar responsive-page-sizing justify-content-between">
             <Nav.Item>
                 <Link to={`/`}>Home</Link><span> </span>
             </Nav.Item>

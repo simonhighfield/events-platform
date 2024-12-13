@@ -1,3 +1,29 @@
+:root {
+  --padding-mobile: 10%;
+  --padding-tablet: 17.5%;
+  --padding-desktop: 25%;
+  --padding-vertical: 1em;
+}
+
+.responsive-page-sizing {
+  padding-left: var(--padding-mobile);
+  padding-right: var(--padding-mobile);
+  padding-top: var(--padding-vertical);
+  padding-bottom: var(--padding-vertical);
+
+  @media (min-width: 600px) {
+    padding-left: var(--padding-tablet);
+    padding-right: var(--padding-tablet);
+  }
+
+  @media (min-width: 900px) {
+    padding-left: var(--padding-desktop);
+    padding-right: var(--padding-desktop);
+  }
+}
+
+
+
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
