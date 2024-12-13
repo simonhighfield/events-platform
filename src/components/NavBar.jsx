@@ -4,7 +4,6 @@ import { ProfileContext } from "../Contexts"
 import Nav from 'react-bootstrap/Nav';
 import "./NavBar.css"
 
-
 export default function NavBar() {
     const { profile } = useContext(ProfileContext)
 
