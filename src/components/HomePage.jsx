@@ -16,6 +16,7 @@ import { generateSavedEvents } from '../utils/generateSavedEvents.js';
 import paramsForTestSaveSkiddleEvent from '../data/paramsForTestSaveSkiddleEvent';
 import connectGoogleAccount from '../utils/connectGoogleAccount.js';
 import { addEventToGoogleCalendar } from '../utils/addEventToGoogleCalendar.js';
+import EventsFeed from './EventsFeed.jsx';
 
 export default function HomePage () {
     const { profile } = useContext(ProfileContext)
@@ -87,6 +88,7 @@ export default function HomePage () {
     return (
         <main className='responsive-page-sizing'>
             <h1>HomePage.jsx</h1>
+            <EventsFeed/>
             <SessionId/>
             <button onClick={handleFetchAllEvents}>get all events</button>
             <button onClick={handlePostAdminEvent}>post test admin event</button>
