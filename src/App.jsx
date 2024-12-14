@@ -8,6 +8,7 @@ import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import HomePage from './components/HomePage';
 import LoginPage from './components/LoginPage';
+import SavedEventsPage from './components/SavedEventsPage';
 import NoPage from './components/NoPage';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { SessionContext, ProfileContext, GoogleTokenContext } from './Contexts'
@@ -33,6 +34,7 @@ function App() {
           <Routes>
             <Route path='/' element={<HomePage/>} />
             <Route path="login" element={<LoginPage/>} />
+            <Route path="saved-events" element={<SavedEventsPage/>} />
             <Route path="*" element={<NoPage/>} />
           </Routes>
           <Footer/>

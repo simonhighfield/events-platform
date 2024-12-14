@@ -12,7 +12,7 @@ export default function Footer () {
             <Link to={`/`}>Home</Link><span> </span>
         </Nav.Item>
         <Nav.Item>
-            <Link to={`login`}>profile</Link><span> </span>
+            <Link to={`saved-events`}>saved events</Link><span> </span>
         </Nav.Item>
     </Nav>
     )
