@@ -7,7 +7,7 @@ import "./Footer.css"
 export default function Footer () {
     return(
         // <h1>Footer.jsx</h1>
-        <Nav sticky="bottom" className="Footer responsive-page-sizing justify-content-between">
+        <Nav className="Footer responsive-page-sizing justify-content-between sticky-bottom">
         <Nav.Item>
             <Link to={`/`}>Home</Link><span> </span>
         </Nav.Item>

@@ -8,7 +8,7 @@ export default function NavBar() {
     const { profile } = useContext(ProfileContext)
 
     return (
-        <Nav sticky="top" className="NavBar responsive-page-sizing justify-content-between">
+        <Nav className="NavBar responsive-page-sizing sticky-top justify-content-between">
             <Nav.Item>
                 <Link to={`/`}>Home</Link><span> </span>
             </Nav.Item>
