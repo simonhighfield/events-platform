@@ -18,8 +18,8 @@ import initialiseGoogleApiClient from './utils/initialiseGoogleApiClient'
 function App() {
   const [session, setSession] = useState(null)
   const [profile, setProfile] = useState(null)
-  const [googleToken, setGoogleToken] = useState(null)
-  
+  const [googleToken, setGoogleToken] = useState([])
+
   useEffect(() => {    
     initialiseGoogleApiClient()
     return monitorSupabaseSession(setSession, setProfile)

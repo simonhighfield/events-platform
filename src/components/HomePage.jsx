@@ -22,11 +22,17 @@ export default function HomePage () {
     const { profile } = useContext(ProfileContext)
     const { googleToken, setGoogleToken } = useContext(GoogleTokenContext)
     const [ eventsFound, setEventsFound ] = useState(null)
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
         fetchAndSortAllEvents(skiddleParamsForClubEventsInManchester)
         .then(({ events }) => {
             setEventsFound(events)
+        })
+        .catch(({error}) => {
+        })
+        .finally(() => {
+            setIsLoading(false)
         })
     }, [])
 
@@ -98,7 +104,10 @@ export default function HomePage () {
     return (
         <main className='responsive-page-sizing'>
             <h1>HomePage.jsx</h1>
-            <EventsFeed events={eventsFound}/>
+            {isLoading
+                ? <h2>loading</h2>
+                : <EventsFeed events={eventsFound} />
+            }
             <SessionId/>
             <button onClick={handleFetchAllEvents}>get all events</button>
             <button onClick={handlePostAdminEvent}>post test admin event</button>
