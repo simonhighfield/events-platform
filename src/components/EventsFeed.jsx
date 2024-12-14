@@ -8,13 +8,14 @@ import Button from 'react-bootstrap/Button';
 import { convertDateToYYYYMMDD } from '../utils/convertDateToYYYYMMDD';
 import { Link } from 'react-router-dom';
 import getEventId from '../utils/getEventId';
+import { calcNumColsFromNumOfEvents } from './calcNumColsFromNumOfEvents';
 
 export default function EventsFeed ({ events }) {
   const { session } = useContext(SessionContext);  
 
     return (
       <>
-        <Row xs={1} md={2} className="g-4">
+        <Row xs={1} md={calcNumColsFromNumOfEvents(events)} className="g-4">
           {events.map((event, idx) => {
             const eventId = getEventId(event)
             const eventDate = convertDateToYYYYMMDD(event.event_date)
@@ -49,4 +50,3 @@ export default function EventsFeed ({ events }) {
       </>
     );
 }
-
