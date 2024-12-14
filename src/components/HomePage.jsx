@@ -85,7 +85,7 @@ export default function HomePage () {
     }
 
     return (
-        <>
+        <main className='responsive-page-sizing'>
             <h1>HomePage.jsx</h1>
             <SessionId/>
             <button onClick={handleFetchAllEvents}>get all events</button>
@@ -93,6 +93,6 @@ export default function HomePage () {
             <button onClick={handleSaveEvent}>save a test event, fetch all, and delete the just saved one</button>
             <button onClick={handleGoogleSignIn}>connect to google</button>
             <button onClick={handleAddEventToGoogleCalendar}>Add test event to google cal</button>
-        </>
+        </main>
     )
 }

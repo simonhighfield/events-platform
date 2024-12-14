@@ -13,18 +13,18 @@ export default function LoginPage () {
 
     if (!session) {
         return (
-          <>
+          <main className='responsive-page-sizing'>
             <SessionId/>
             <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} providers={[]}/>
-          </>
+          </main>
         )
       } else {
         return (
-          <>
+          <main className='responsive-page-sizing'>
             <SessionId/>
             <button onClick={handleSignOut}>sign out</button>
             <button onClick={() => addCurrentUserToPublicUserProfiles(session)}>add user to publicprofiles</button>
-          </>
+          </main>
         )
       }
 }
