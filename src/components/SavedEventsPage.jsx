@@ -2,7 +2,8 @@ import { useContext, useEffect, useState } from "react"
 import { ProfileContext } from "../Contexts"
 import fetchSavedEventsByUserId from "../utils/fetchSavedEventsByUserId"
 import Loading from "./Loading"
-// import EventsFeed from "./EventsFeed"
+import EventsFeed from "./EventsFeed"
+import { generateSavedEvents } from "../utils/generateSavedEvents"
 
 export default function Login() {
     const { profile } = useContext(ProfileContext)
@@ -15,8 +16,10 @@ export default function Login() {
             setIsLoading(true)
             fetchSavedEventsByUserId(profile.id)
             .then(({ savedEvents }) => {
-                console.log(savedEvents);
-                setEventsFound(savedEvents)
+                return generateSavedEvents( savedEvents )                
+            })
+            .then((generatedEvents) => {
+                setEventsFound(generatedEvents)
             })
             .catch(({error}) => {
             })
@@ -39,8 +42,7 @@ export default function Login() {
         <main className='responsive-page-sizing'>
             {isLoading
                 ? <Loading/>
-                : <h2>saved events</h2>
-                // : <EventsFeed events={eventsFound} />
+                : <EventsFeed events={eventsFound} />
             }
         </main>
     )
