@@ -17,6 +17,7 @@ import paramsForTestSaveSkiddleEvent from '../data/paramsForTestSaveSkiddleEvent
 import connectGoogleAccount from '../utils/connectGoogleAccount.js';
 import { addEventToGoogleCalendar } from '../utils/addEventToGoogleCalendar.js';
 import EventsFeed from './EventsFeed.jsx';
+import Loading from './Loading.jsx';
 
 export default function HomePage () {
     const { profile } = useContext(ProfileContext)
@@ -35,7 +36,6 @@ export default function HomePage () {
             setIsLoading(false)
         })
     }, [])
-
 
 
     function handleFetchAllEvents () {
@@ -105,7 +105,7 @@ export default function HomePage () {
         <main className='responsive-page-sizing'>
             <h1>HomePage.jsx</h1>
             {isLoading
-                ? <h2>loading</h2>
+                ? <Loading/>
                 : <EventsFeed events={eventsFound} />
             }
             <SessionId/>
