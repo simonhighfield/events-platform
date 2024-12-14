@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { GoogleTokenContext, ProfileContext, SessionContext } from '../Contexts'
 import SessionId from './SessionId';
 import fetchAndSortAllEvents from '../utils/fetchAndSortAllEvents.js';
@@ -21,6 +21,16 @@ import EventsFeed from './EventsFeed.jsx';
 export default function HomePage () {
     const { profile } = useContext(ProfileContext)
     const { googleToken, setGoogleToken } = useContext(GoogleTokenContext)
+    const [ eventsFound, setEventsFound ] = useState(null)
+
+    useEffect(() => {
+        fetchAndSortAllEvents(skiddleParamsForClubEventsInManchester)
+        .then(({ events }) => {
+            setEventsFound(events)
+        })
+    }, [])
+
+
 
     function handleFetchAllEvents () {
         fetchAndSortAllEvents(skiddleParamsForClubEventsInManchester)
@@ -88,7 +98,7 @@ export default function HomePage () {
     return (
         <main className='responsive-page-sizing'>
             <h1>HomePage.jsx</h1>
-            <EventsFeed/>
+            <EventsFeed events={eventsFound}/>
             <SessionId/>
             <button onClick={handleFetchAllEvents}>get all events</button>
             <button onClick={handlePostAdminEvent}>post test admin event</button>
