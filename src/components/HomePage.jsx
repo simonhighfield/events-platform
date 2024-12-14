@@ -63,7 +63,7 @@ export default function HomePage () {
         })
     }
 
-    function handleSaveEvent() {
+    function handleSaveEventSequence() {
         saveEvent(profile, paramsForTestSaveEvent)
         .then(({ savedEvent }) => {
             console.log('successfully saved: ', savedEvent);
@@ -89,6 +89,29 @@ export default function HomePage () {
         })
     }
 
+    function handleSaveEvent() {
+        saveEvent(profile, paramsForTestSaveEvent)
+        .then(({ savedEvent }) => {
+            console.log('successfully saved: ', savedEvent);
+        })
+        .catch(({ error }) => {
+            console.log(error);
+        })
+    }
+
+
+    // function handleDeleteSavedEvent() {
+    //     console.log(paramsForTestSaveEvent);
+        
+    //     deleteSavedEventById(paramsForTestSaveEvent.id)        
+    //     .then (( { deletedEvent }) => {
+    //         console.log('deleted saved event: ', deletedEvent);
+    //     })
+    //     .catch(({ error }) => {
+    //         console.log(error.message);
+    //     })
+    // }
+
     async function handleGoogleSignIn() {
         const { token } = await connectGoogleAccount()
         setGoogleToken(token)
@@ -111,7 +134,9 @@ export default function HomePage () {
             <SessionId/>
             <button onClick={handleFetchAllEvents}>get all events</button>
             <button onClick={handlePostAdminEvent}>post test admin event</button>
-            <button onClick={handleSaveEvent}>save a test event, fetch all, and delete the just saved one</button>
+            <button onClick={handleSaveEventSequence}>save a test event, fetch all, and delete the just saved one</button>
+            <button onClick={handleSaveEvent}>save test event</button>
+            {/* <button onClick={handleDeleteSavedEvent}>delete the test saved event</button> */}
             <button onClick={handleGoogleSignIn}>connect to google</button>
             <button onClick={handleAddEventToGoogleCalendar}>Add test event to google cal</button>
         </main>
