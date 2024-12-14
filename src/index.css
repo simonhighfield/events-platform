@@ -3,6 +3,9 @@
   --padding-tablet: 17.5%;
   --padding-desktop: 25%;
   --padding-vertical: 1em;
+
+  /* 1rem = 10px */
+  font-size: 62.5%;
 }
 
 .responsive-page-sizing {
@@ -24,6 +27,8 @@
 
 body {
   min-height: 100vh;
+  font-size: 16px;
+  font-size: 1.6rem;
 }
 
 .NavBar, .Footer {
