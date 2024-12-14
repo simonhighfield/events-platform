@@ -4,6 +4,7 @@ import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import ListGroup from 'react-bootstrap/ListGroup';
+import Button from 'react-bootstrap/Button';
 
 export default function EventsFeed ({ events }) {
   const { session } = useContext(SessionContext);  
@@ -11,30 +12,30 @@ export default function EventsFeed ({ events }) {
     return (
       <>
         <Row xs={1} md={2} className="g-4">
-          {Array.from({ length: 4 }).map((_, idx) => (
+          {events.map((event, idx) => (
             <Col key={idx}>
               <Card>
-                <Card.Img variant="top" src="holder.js/100px160" />
+                <Card.Img variant="top" src={event.event_photo_url} />
                 <Card.Body>
-                  <Card.Title>Event Name</Card.Title>
+                  <Card.Title>{event.event_name}</Card.Title>
                   <Card.Text>
-                    This is a longer card with supporting text below as a natural
-                    lead-in to additional content. This content is a little bit
-                    longer.
+                    {event.description}
                   </Card.Text>
+                  <div className="d-grid gap-2">
+                    <Button variant="primary" size="lg">
+                      More Info + tickets
+                    </Button>
+                  </div>
                 </Card.Body>
                 <ListGroup className="list-group-flush">
-                  <ListGroup.Item>Contributors</ListGroup.Item>
-                  <ListGroup.Item>Date</ListGroup.Item>
-                  <ListGroup.Item>Location</ListGroup.Item>
+                  {/* <ListGroup.Item>{event.contributors.length > 0 ? event.contributors : 'n/a'}</ListGroup.Item> */}
+                  <ListGroup.Item>{event.event_date}</ListGroup.Item>
+                  <ListGroup.Item>{event.location}</ListGroup.Item>
                 </ListGroup>
               </Card>
             </Col>
           ))}
         </Row>
-        {/* {events.map((event) => {
-          return <p>{event.event_name}</p>;
-        })} */}
       </>
     );
 }
