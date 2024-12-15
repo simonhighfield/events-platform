@@ -11,6 +11,9 @@ import formatSkiddleEvent from '../utils/formatSkiddleEvent';
 import Loading from './Loading';
 import { getTimefromDateinHHMM } from '../utils/getTimefromDateinHHMM';
 import { getEventContributors } from './getEventContributors';
+import { addEventToGoogleCalendar } from '../utils/addEventToGoogleCalendar';
+import LoadingButton from './LoadingButton';
+import paramsForTestAdminEvent from '../data/paramsForTestAdminEvent';
 
 export default function EventPage () {
     const { eventSource, eventId } = useParams();
@@ -49,7 +52,6 @@ export default function EventPage () {
         }
     },[eventId])
 
-
     return(   
         <main className='responsive-page-sizing'>
             {isLoading 
@@ -61,13 +63,13 @@ export default function EventPage () {
                         <Card.Text>
                         {event.description}
                         </Card.Text>
-                        <Link to={`/events/${eventId}`}>
                         <div className="d-grid gap-2">
-                            <Button variant="primary" size="lg">
-                            More Info + tickets
-                            </Button>
+                            <LoadingButton 
+                                asyncFunction={addEventToGoogleCalendar}
+                                args={[paramsForTestAdminEvent]}
+                                initialText='Add to Google Calendar'
+                            />
                         </div>
-                        </Link>
                     </Card.Body>
                     <ListGroup className="list-group-flush">
                         {event.contributors.length > 0

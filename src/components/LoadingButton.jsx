@@ -1,46 +1,40 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 
-export default function LoadingButton() {
-  const [isLoading, setLoading] = useState(false);
-  const [buttonDisabled, setButtonDisabled] = useState (false)
-  const [buttonText, setButtonText] = useState ("Add to Google Calendar")
-  const [buttonVarient, setButtonVarient] = useState ("primary")
+export default function LoadingButton({ asyncFunction, args = [], initialText = "Click to load" }) {
+//   const [isLoading, setIsLoading] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [buttonText, setButtonText] = useState(initialText);
+  const [buttonVariant, setButtonVariant] = useState("primary");
 
-  function simulateNetworkRequest() {
-    return new Promise(resolve => {
-      setTimeout(resolve, 2000);
-    });
-  }
+  function handleClick () {
+    // setIsLoading(true);
+    setButtonText("Adding ...");
+    setButtonVariant("primary");
+    setButtonDisabled(true);
 
-  useEffect(() => {
-    if (isLoading) {
-        setButtonText("Adding ...")
-        setButtonVarient("primary")
-        setButtonDisabled(true)
-
-        simulateNetworkRequest()
-        .then(() => {
-            setLoading(false);
-            setButtonText("Added to Google Calendar")
-            setButtonVarient("success")
-            setButtonDisabled(true)
-        })
-        .catch((error) => {
-            setButtonText("Couldn't add to Google Calendar. Try again?")
-            setButtonVarient("danger")
-            setButtonDisabled(false)
-        })
-    }
-  }, [isLoading]);
-
-  const handleClick = () => setLoading(true);
+    asyncFunction(...args)
+      .then(() => {
+        setButtonText("Success");
+        setButtonVariant("success");
+        setButtonDisabled(true);
+      })
+      .catch((error) => {
+        setButtonText("Error. Try again?");
+        setButtonVariant("danger");
+        setButtonDisabled(false);
+      })
+      .finally(() => {
+        // setIsLoading(false);
+      });
+  };
 
   return (
     <Button
-      variant={buttonVarient}
+      variant={buttonVariant}
       disabled={buttonDisabled}
-      onClick={!isLoading ? handleClick : null}
+      onClick={handleClick}
+    //   onClick={!isLoading ? handleClick : null}
     >
       {buttonText}
     </Button>
