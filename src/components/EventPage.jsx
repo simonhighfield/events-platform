@@ -9,6 +9,7 @@ import fetchSkiddleEventById from "../utils/fetchSkiddleEventById";
 import fetchAdminEventById from '../utils/fetchAdminEventById';
 import formatSkiddleEvent from '../utils/formatSkiddleEvent';
 import Loading from './Loading';
+import { getTimefromDateinHHMM } from '../utils/getTimefromDateinHHMM';
 
 export default function EventPage () {
     const { eventSource, eventId } = useParams();
@@ -73,6 +74,7 @@ export default function EventPage () {
                             : null
                         }
                         <ListGroup.Item>{eventDate}</ListGroup.Item>
+                        <ListGroup.Item>{getTimefromDateinHHMM(event.event_date)}</ListGroup.Item>
                         <ListGroup.Item>{event.location}</ListGroup.Item>
                     </ListGroup>
                 </Card> 
