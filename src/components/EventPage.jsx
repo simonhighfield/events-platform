@@ -50,30 +50,33 @@ export default function EventPage () {
 
     return(   
         <main className='responsive-page-sizing'>
-
             {isLoading 
-            ? <Loading/>
-            : <Card>
-                <Card.Img variant="top" src={event.event_photo_url} />
-                <Card.Body>
-                    <Card.Title>{event.event_name}</Card.Title>
-                    <Card.Text>
-                    {event.description}
-                    </Card.Text>
-                    <Link to={`/events/${eventId}`}>
-                    <div className="d-grid gap-2">
-                        <Button variant="primary" size="lg">
-                        More Info + tickets
-                        </Button>
-                    </div>
-                    </Link>
-                </Card.Body>
-                <ListGroup className="list-group-flush">
-                    {/* <ListGroup.Item>{event.contributors.length > 0 ? event.contributors : 'n/a'}</ListGroup.Item> */}
-                    <ListGroup.Item>{eventDate}</ListGroup.Item>
-                    <ListGroup.Item>{event.location}</ListGroup.Item>
-                </ListGroup>
-            </Card> }
+                ? <Loading/>
+                : <Card>
+                    <Card.Img variant="top" src={event.event_photo_url} />
+                    <Card.Body>
+                        <Card.Title>{event.event_name}</Card.Title>
+                        <Card.Text>
+                        {event.description}
+                        </Card.Text>
+                        <Link to={`/events/${eventId}`}>
+                        <div className="d-grid gap-2">
+                            <Button variant="primary" size="lg">
+                            More Info + tickets
+                            </Button>
+                        </div>
+                        </Link>
+                    </Card.Body>
+                    <ListGroup className="list-group-flush">
+                        {event.contributors.length > 0
+                            ? <ListGroup.Item> {event.contributors} </ListGroup.Item>
+                            : null
+                        }
+                        <ListGroup.Item>{eventDate}</ListGroup.Item>
+                        <ListGroup.Item>{event.location}</ListGroup.Item>
+                    </ListGroup>
+                </Card> 
+            }
         </main>
     )
 }
