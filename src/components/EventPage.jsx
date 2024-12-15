@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-import { SessionContext } from '../Contexts'
+import { ProfileContext, SessionContext } from '../Contexts'
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
@@ -21,6 +21,7 @@ export default function EventPage () {
     const [isLoading, setIsLoading] = useState(true)
     const [event, setEvent] = useState({})
     const [eventDate, setEventDate] = useState(null)
+    const profile = useContext(ProfileContext)
 
     useEffect(() => {
         setIsLoading(true)
@@ -65,9 +66,14 @@ export default function EventPage () {
                         {event.description}
                         </Card.Text>
                         <div className="d-grid gap-2">
+                            {/* <LoadingButton 
+                                asyncFunction={saveEvent}
+                                args={[profile, paramsForTestAdminEvent]}
+                                initialText='Add to Saved Events'
+                            /> */}
                             <LoadingButton 
                                 asyncFunction={addEventToGoogleCalendar}
-                                args={[paramsForTestAdminEvent]}
+                                args={[event]}
                                 initialText='Add to Google Calendar'
                             />
                         </div>
