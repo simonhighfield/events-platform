@@ -38,7 +38,7 @@ function App() {
             <Route path="login" element={<LoginPage/>} />
             <Route path="saved-events" element={<SavedEventsPage/>} />
             <Route path="add-event" element={<AddEventPage/>} />
-            <Route path='/events/:event_id' element={<EventPage/>} />
+            <Route path='/events/:eventSource/:eventId' element={<EventPage/>} />
             <Route path="*" element={<NoPage/>} />
           </Routes>
           <Footer/>

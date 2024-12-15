@@ -1,7 +1,11 @@
+import { useParams } from "react-router-dom";
+
 export default function EventPage () {
+    const { eventSource, eventId } = useParams();
+    console.log(eventSource, eventId);
+    
     return(
-        <main className='responsive-page-sizing'>
-            <h1>EventPage</h1>
-        </main>
+        <h1>event</h1>
+
     )
 }

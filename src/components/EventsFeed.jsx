@@ -9,6 +9,7 @@ import { convertDateToYYYYMMDD } from '../utils/convertDateToYYYYMMDD';
 import { Link } from 'react-router-dom';
 import getEventId from '../utils/getEventId';
 import { calcNumColsFromNumOfEvents } from './calcNumColsFromNumOfEvents';
+import { getEventSource } from '../utils/getEventSource';
 
 export default function EventsFeed ({ events }) {
   const { session } = useContext(SessionContext);  
@@ -17,6 +18,7 @@ export default function EventsFeed ({ events }) {
       <>
         <Row xs={1} md={calcNumColsFromNumOfEvents(events)} className="g-4">
           {events.map((event, idx) => {
+            const eventSource = getEventSource(event)
             const eventId = getEventId(event)
             const eventDate = convertDateToYYYYMMDD(event.event_date)
 
@@ -29,7 +31,7 @@ export default function EventsFeed ({ events }) {
                     <Card.Text>
                       {event.description}
                     </Card.Text>
-                    <Link to={`/events/${eventId}`}>
+                    <Link to={`/events/${eventSource}/${eventId}`}>
                       <div className="d-grid gap-2">
                         <Button variant="primary" size="lg">
                           More Info + tickets
