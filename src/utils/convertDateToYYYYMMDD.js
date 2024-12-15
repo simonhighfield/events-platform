@@ -1,3 +1,4 @@
 export function convertDateToYYYYMMDD(date) {
-    return date.toISOString().split('T')[0];
+    
+    return new Date (date).toISOString().split('T')[0];
 }

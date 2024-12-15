@@ -14,12 +14,13 @@ import NoPage from './components/NoPage';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { SessionContext, ProfileContext, GoogleTokenContext } from './Contexts'
 import initialiseGoogleApiClient from './utils/initialiseGoogleApiClient'
+import EventPage from './components/EventPage'
 
 function App() {
   const [session, setSession] = useState(null)
   const [profile, setProfile] = useState(null)
-  const [googleToken, setGoogleToken] = useState(null)
-  
+  const [googleToken, setGoogleToken] = useState([])
+
   useEffect(() => {    
     initialiseGoogleApiClient()
     return monitorSupabaseSession(setSession, setProfile)
@@ -37,6 +38,7 @@ function App() {
             <Route path="login" element={<LoginPage/>} />
             <Route path="saved-events" element={<SavedEventsPage/>} />
             <Route path="add-event" element={<AddEventPage/>} />
+            <Route path='/events/:eventSource/:eventId' element={<EventPage/>} />
             <Route path="*" element={<NoPage/>} />
           </Routes>
           <Footer/>

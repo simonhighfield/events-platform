@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { GoogleTokenContext, ProfileContext, SessionContext } from '../Contexts'
 import SessionId from './SessionId';
 import fetchAndSortAllEvents from '../utils/fetchAndSortAllEvents.js';
@@ -16,10 +16,27 @@ import { generateSavedEvents } from '../utils/generateSavedEvents.js';
 import paramsForTestSaveSkiddleEvent from '../data/paramsForTestSaveSkiddleEvent';
 import connectGoogleAccount from '../utils/connectGoogleAccount.js';
 import { addEventToGoogleCalendar } from '../utils/addEventToGoogleCalendar.js';
+import EventsFeed from './EventsFeed.jsx';
+import Loading from './Loading.jsx';
 
 export default function HomePage () {
     const { profile } = useContext(ProfileContext)
     const { googleToken, setGoogleToken } = useContext(GoogleTokenContext)
+    const [ eventsFound, setEventsFound ] = useState(null)
+    const [isLoading, setIsLoading] = useState(true)
+
+    useEffect(() => {
+        fetchAndSortAllEvents(skiddleParamsForClubEventsInManchester)
+        .then(({ events }) => {
+            setEventsFound(events)
+        })
+        .catch(({error}) => {
+        })
+        .finally(() => {
+            setIsLoading(false)
+        })
+    }, [])
+
 
     function handleFetchAllEvents () {
         fetchAndSortAllEvents(skiddleParamsForClubEventsInManchester)
@@ -46,7 +63,7 @@ export default function HomePage () {
         })
     }
 
-    function handleSaveEvent() {
+    function handleSaveEventSequence() {
         saveEvent(profile, paramsForTestSaveEvent)
         .then(({ savedEvent }) => {
             console.log('successfully saved: ', savedEvent);
@@ -72,6 +89,29 @@ export default function HomePage () {
         })
     }
 
+    function handleSaveEvent() {
+        saveEvent(profile, paramsForTestSaveEvent)
+        .then(({ savedEvent }) => {
+            console.log('successfully saved: ', savedEvent);
+        })
+        .catch(({ error }) => {
+            console.log(error);
+        })
+    }
+
+
+    // function handleDeleteSavedEvent() {
+    //     console.log(paramsForTestSaveEvent);
+        
+    //     deleteSavedEventById(paramsForTestSaveEvent.id)        
+    //     .then (( { deletedEvent }) => {
+    //         console.log('deleted saved event: ', deletedEvent);
+    //     })
+    //     .catch(({ error }) => {
+    //         console.log(error.message);
+    //     })
+    // }
+
     async function handleGoogleSignIn() {
         const { token } = await connectGoogleAccount()
         setGoogleToken(token)
@@ -87,10 +127,16 @@ export default function HomePage () {
     return (
         <main className='responsive-page-sizing'>
             <h1>HomePage.jsx</h1>
+            {isLoading
+                ? <Loading/>
+                : <EventsFeed events={eventsFound} />
+            }
             <SessionId/>
             <button onClick={handleFetchAllEvents}>get all events</button>
             <button onClick={handlePostAdminEvent}>post test admin event</button>
-            <button onClick={handleSaveEvent}>save a test event, fetch all, and delete the just saved one</button>
+            <button onClick={handleSaveEventSequence}>save a test event, fetch all, and delete the just saved one</button>
+            <button onClick={handleSaveEvent}>save test event</button>
+            {/* <button onClick={handleDeleteSavedEvent}>delete the test saved event</button> */}
             <button onClick={handleGoogleSignIn}>connect to google</button>
             <button onClick={handleAddEventToGoogleCalendar}>Add test event to google cal</button>
         </main>
