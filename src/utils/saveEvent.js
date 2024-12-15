@@ -1,9 +1,7 @@
 import { supabase } from "./supabaseClient";
 import { getEventSource } from "./getEventSource";
 
-export default async function saveEvent(profile, event) {
-    console.log('profile: ', profile);
-    
+export default async function saveEvent(profile, event) {    
     const { data, error } = await supabase
         .from('saved_events')
         .insert({
@@ -14,8 +12,7 @@ export default async function saveEvent(profile, event) {
         })
         .select()
     if (data) {
-        console.log("event saved: ", data[0]);
-    
+        console.log("savedEvent: ", data[0]);
         return { savedEvent: data[0] }
     }
     if (error) {

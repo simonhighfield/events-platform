@@ -69,11 +69,10 @@ export default function EventPage () {
                 savedEvents.forEach(savedEvent => {
                     
                     const savedEventId = savedEvent.admin_event_id || savedEvent.skiddle_event_id;
-                    console.log(savedEvent, savedEventId);
-                    
+                    // console.log(savedEvent, savedEventId);
 
                     if (savedEventId === eventId) {
-                        console.log('this event has already been saved with id = ', savedEvent.id);
+                        // console.log('this event has already been saved with id = ', savedEvent.id);
                         setEventIsSaved(true)
                         setSavedId(savedEvent.id)
                     }
@@ -84,7 +83,6 @@ export default function EventPage () {
 
 
     function handleDelete () {
-        console.log('handle delete of save with id', savedId);
         deleteSavedEventById(savedId)
         .then(({ deletedEvent }) => {
             setSavedId('')
@@ -93,10 +91,8 @@ export default function EventPage () {
     }
 
     function handleSave () {
-        console.log('handle save', event);
         saveEvent(profile, event)
         .then(({ savedEvent }) => {
-            console.log('set savedId as ', savedEvent.id);
             setSavedId(savedEvent.id)
             setEventIsSaved(true)
         })
@@ -115,8 +111,21 @@ export default function EventPage () {
                         </Card.Text>
                         <div className="d-grid gap-2">
                             {eventIsSaved 
-                                ? <button onClick={handleDelete}>remove</button> 
-                                : <button onClick={handleSave}>add</button>}
+                                ? <Button
+                                    onClick={handleDelete}
+                                    variant="danger"
+                                    size="lg"
+                                >
+                                    Remove from Saved Events
+                                </Button> 
+
+                                : <Button 
+                                    onClick={handleSave}
+                                    variant="success"
+                                    size="lg"
+                                >
+                                    Add to Saved Events
+                                </Button>}
                             {/* {eventIsSaved 
                                 ? <LoadingButton 
                                     asyncFunction={deleteSavedEventById}
