@@ -15,13 +15,14 @@ import { addEventToGoogleCalendar } from '../utils/addEventToGoogleCalendar';
 import LoadingButton from './LoadingButton';
 import paramsForTestAdminEvent from '../data/paramsForTestAdminEvent';
 import saveEvent from '../utils/saveEvent';
+import paramsForTestSaveEvent from '../data/paramsForTestSaveEvent';
 
 export default function EventPage () {
     const { eventSource, eventId } = useParams();
     const [isLoading, setIsLoading] = useState(true)
     const [event, setEvent] = useState({})
     const [eventDate, setEventDate] = useState(null)
-    const profile = useContext(ProfileContext)
+    const { profile } = useContext(ProfileContext)    
 
     useEffect(() => {
         setIsLoading(true)
@@ -66,11 +67,11 @@ export default function EventPage () {
                         {event.description}
                         </Card.Text>
                         <div className="d-grid gap-2">
-                            {/* <LoadingButton 
+                            <LoadingButton 
                                 asyncFunction={saveEvent}
-                                args={[profile, paramsForTestAdminEvent]}
+                                args={[profile, paramsForTestSaveEvent]}
                                 initialText='Add to Saved Events'
-                            /> */}
+                            />
                             <LoadingButton 
                                 asyncFunction={addEventToGoogleCalendar}
                                 args={[event]}

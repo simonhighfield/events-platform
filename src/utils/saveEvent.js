@@ -2,7 +2,9 @@ import { supabase } from "./supabaseClient";
 import { getEventSource } from "./getEventSource";
 
 export default async function saveEvent(profile, event) {
-
+    console.log(profile.id);
+    console.log(event);
+    
     const { data, error } = await supabase
         .from('saved_events')
         .insert({
