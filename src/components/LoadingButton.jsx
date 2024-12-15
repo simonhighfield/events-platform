@@ -34,6 +34,7 @@ export default function LoadingButton({ asyncFunction, args = [], initialText = 
       variant={buttonVariant}
       disabled={buttonDisabled}
       onClick={handleClick}
+      size="lg"
     //   onClick={!isLoading ? handleClick : null}
     >
       {buttonText}

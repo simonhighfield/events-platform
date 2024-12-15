@@ -14,6 +14,7 @@ import { getEventContributors } from './getEventContributors';
 import { addEventToGoogleCalendar } from '../utils/addEventToGoogleCalendar';
 import LoadingButton from './LoadingButton';
 import paramsForTestAdminEvent from '../data/paramsForTestAdminEvent';
+import saveEvent from '../utils/saveEvent';
 
 export default function EventPage () {
     const { eventSource, eventId } = useParams();
