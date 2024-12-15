@@ -69,7 +69,7 @@ export default function EventPage () {
                         <div className="d-grid gap-2">
                             <LoadingButton 
                                 asyncFunction={saveEvent}
-                                args={[profile, paramsForTestSaveEvent]}
+                                args={[profile, event]}
                                 initialText='Add to Saved Events'
                             />
                             <LoadingButton 
