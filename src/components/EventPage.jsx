@@ -1,8 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import { SessionContext } from '../Contexts'
 import Card from 'react-bootstrap/Card';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import { convertDateToYYYYMMDD } from '../utils/convertDateToYYYYMMDD';
@@ -10,6 +8,7 @@ import { Link, useParams } from 'react-router-dom';
 import fetchSkiddleEventById from "../utils/fetchSkiddleEventById";
 import fetchAdminEventById from '../utils/fetchAdminEventById';
 import formatSkiddleEvent from '../utils/formatSkiddleEvent';
+import Loading from './Loading';
 
 export default function EventPage () {
     const { eventSource, eventId } = useParams();
@@ -46,35 +45,35 @@ export default function EventPage () {
                 setIsLoading(false)
             })
         }
-
-
-
     },[eventId])
 
-    return(
-         
+
+    return(   
         <main className='responsive-page-sizing'>
-            <Card>
-                  <Card.Img variant="top" src={event.event_photo_url} />
-                  <Card.Body>
+
+            {isLoading 
+            ? <Loading/>
+            : <Card>
+                <Card.Img variant="top" src={event.event_photo_url} />
+                <Card.Body>
                     <Card.Title>{event.event_name}</Card.Title>
                     <Card.Text>
-                      {event.description}
+                    {event.description}
                     </Card.Text>
                     <Link to={`/events/${eventId}`}>
-                      <div className="d-grid gap-2">
+                    <div className="d-grid gap-2">
                         <Button variant="primary" size="lg">
-                          More Info + tickets
+                        More Info + tickets
                         </Button>
-                      </div>
+                    </div>
                     </Link>
-                  </Card.Body>
-                  <ListGroup className="list-group-flush">
+                </Card.Body>
+                <ListGroup className="list-group-flush">
                     {/* <ListGroup.Item>{event.contributors.length > 0 ? event.contributors : 'n/a'}</ListGroup.Item> */}
                     <ListGroup.Item>{eventDate}</ListGroup.Item>
                     <ListGroup.Item>{event.location}</ListGroup.Item>
-                  </ListGroup>
-                </Card>
+                </ListGroup>
+            </Card> }
         </main>
     )
 }
