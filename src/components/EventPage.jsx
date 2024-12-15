@@ -101,6 +101,7 @@ export default function EventPage () {
                                     asyncFunction={deleteSavedEventById}
                                     args={[profile, event]}
                                     initialText='Remove from Saved Events'
+                                    initialVariant = "danger"
                                 />
                             }
                             <LoadingButton 
