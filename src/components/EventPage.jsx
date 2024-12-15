@@ -10,6 +10,7 @@ import fetchAdminEventById from '../utils/fetchAdminEventById';
 import formatSkiddleEvent from '../utils/formatSkiddleEvent';
 import Loading from './Loading';
 import { getTimefromDateinHHMM } from '../utils/getTimefromDateinHHMM';
+import { getEventContributors } from './getEventContributors';
 
 export default function EventPage () {
     const { eventSource, eventId } = useParams();
@@ -70,7 +71,7 @@ export default function EventPage () {
                     </Card.Body>
                     <ListGroup className="list-group-flush">
                         {event.contributors.length > 0
-                            ? <ListGroup.Item> {event.contributors} </ListGroup.Item>
+                            ? <ListGroup.Item> {getEventContributors(event)} </ListGroup.Item>
                             : null
                         }
                         <ListGroup.Item>{eventDate}</ListGroup.Item>
