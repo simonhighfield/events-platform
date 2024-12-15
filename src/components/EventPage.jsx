@@ -19,6 +19,8 @@ import paramsForTestSaveEvent from '../data/paramsForTestSaveEvent';
 import deleteSavedEventById from '../utils/deleteSavedEventById';
 import fetchSavedEventsByUserId from '../utils/fetchSavedEventsByUserId';
 import getEventId from '../utils/getEventId';
+import deleteAdminEventById from '../utils/deleteAdminEventById';
+
 
 export default function EventPage () {
     const { eventSource, eventId } = useParams();
@@ -27,8 +29,7 @@ export default function EventPage () {
     const [eventDate, setEventDate] = useState(null)
     const { profile } = useContext(ProfileContext)    
     const [eventIsSaved, setEventIsSaved] = useState(false)
-    const [savedId, setSaveId] = useState('')
-
+    const [savedId, setSavedId] = useState('')
 
     useEffect(() => {
         setIsLoading(true)
@@ -68,16 +69,38 @@ export default function EventPage () {
                 savedEvents.forEach(savedEvent => {
                     
                     const savedEventId = savedEvent.admin_event_id || savedEvent.skiddle_event_id;
+                    console.log(savedEvent, savedEventId);
                     
+
                     if (savedEventId === eventId) {
+                        console.log('this event has already been saved with id = ', savedEvent.id);
                         setEventIsSaved(true)
-                        setSaveId(savedEvent.id)
-                        console.log(savedEvent);
+                        setSavedId(savedEvent.id)
                     }
                 });
             })
         }
-    },[isLoading, profile])
+    },[isLoading, profile, eventId])
+
+
+    function handleDelete () {
+        console.log('handle delete of save with id', savedId);
+        deleteSavedEventById(savedId)
+        .then(({ deletedEvent }) => {
+            setSavedId('')
+            setEventIsSaved(false)
+        })
+    }
+
+    function handleSave () {
+        console.log('handle save', event);
+        saveEvent(profile, event)
+        .then(({ savedEvent }) => {
+            console.log('set savedId as ', savedEvent.id);
+            setSavedId(savedEvent.id)
+            setEventIsSaved(true)
+        })
+    }
 
     return(   
         <main className='responsive-page-sizing'>
@@ -92,18 +115,21 @@ export default function EventPage () {
                         </Card.Text>
                         <div className="d-grid gap-2">
                             {eventIsSaved 
+                                ? <button onClick={handleDelete}>remove</button> 
+                                : <button onClick={handleSave}>add</button>}
+                            {/* {eventIsSaved 
                                 ? <LoadingButton 
+                                    asyncFunction={deleteSavedEventById}
+                                    args={[savedId]}
+                                    initialText='Remove from Saved Events'
+                                    initialVariant = "danger"
+                                />
+                                : <LoadingButton 
                                     asyncFunction={saveEvent}
                                     args={[profile, event]}
                                     initialText='Add to Saved Events'
                                 />
-                                : <LoadingButton 
-                                    asyncFunction={deleteSavedEventById}
-                                    args={[profile, event]}
-                                    initialText='Remove from Saved Events'
-                                    initialVariant = "danger"
-                                />
-                            }
+                            } */}
                             <LoadingButton 
                                 asyncFunction={addEventToGoogleCalendar}
                                 args={[event]}
