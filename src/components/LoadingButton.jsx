@@ -1,20 +1,36 @@
 import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 
-function LoadingButton() {
+export default function LoadingButton() {
   const [isLoading, setLoading] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState (false)
+  const [buttonText, setButtonText] = useState ("Add to Google Calendar")
+  const [buttonVarient, setButtonVarient] = useState ("primary")
+
+  function simulateNetworkRequest() {
+    return new Promise(resolve => {
+      setTimeout(resolve, 2000);
+    });
+  }
 
   useEffect(() => {
-    function simulateNetworkRequest() {
-      return new Promise(resolve => {
-        setTimeout(resolve, 2000);
-      });
-    }
-
     if (isLoading) {
-      simulateNetworkRequest().then(() => {
-        setLoading(false);
-      });
+        setButtonText("Adding ...")
+        setButtonVarient("primary")
+        setButtonDisabled(true)
+
+        simulateNetworkRequest()
+        .then(() => {
+            setLoading(false);
+            setButtonText("Added to Google Calendar")
+            setButtonVarient("success")
+            setButtonDisabled(true)
+        })
+        .catch((error) => {
+            setButtonText("Couldn't add to Google Calendar. Try again?")
+            setButtonVarient("danger")
+            setButtonDisabled(false)
+        })
     }
   }, [isLoading]);
 
@@ -22,13 +38,11 @@ function LoadingButton() {
 
   return (
     <Button
-      variant="primary"
-      disabled={isLoading}
+      variant={buttonVarient}
+      disabled={buttonDisabled}
       onClick={!isLoading ? handleClick : null}
     >
-      {isLoading ? 'Loading…' : 'Click to load'}
+      {buttonText}
     </Button>
   );
 }
-
-export default LoadingButton;
