@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-import { SessionContext } from '../Contexts'
+import { ProfileContext, SessionContext } from '../Contexts'
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
@@ -15,12 +15,21 @@ import { addEventToGoogleCalendar } from '../utils/addEventToGoogleCalendar';
 import LoadingButton from './LoadingButton';
 import paramsForTestAdminEvent from '../data/paramsForTestAdminEvent';
 import saveEvent from '../utils/saveEvent';
+import paramsForTestSaveEvent from '../data/paramsForTestSaveEvent';
+import deleteSavedEventById from '../utils/deleteSavedEventById';
+import fetchSavedEventsByUserId from '../utils/fetchSavedEventsByUserId';
+import getEventId from '../utils/getEventId';
+import deleteAdminEventById from '../utils/deleteAdminEventById';
+
 
 export default function EventPage () {
     const { eventSource, eventId } = useParams();
     const [isLoading, setIsLoading] = useState(true)
     const [event, setEvent] = useState({})
     const [eventDate, setEventDate] = useState(null)
+    const { profile } = useContext(ProfileContext)    
+    const [eventIsSaved, setEventIsSaved] = useState(false)
+    const [savedId, setSavedId] = useState('')
 
     useEffect(() => {
         setIsLoading(true)
@@ -53,6 +62,42 @@ export default function EventPage () {
         }
     },[eventId])
 
+    useEffect(() => {
+        if (!isLoading && profile) {
+            fetchSavedEventsByUserId(profile.id)
+            .then(({ savedEvents }) => {
+                savedEvents.forEach(savedEvent => {
+                    
+                    const savedEventId = savedEvent.admin_event_id || savedEvent.skiddle_event_id;
+                    // console.log(savedEvent, savedEventId);
+
+                    if (savedEventId === eventId) {
+                        // console.log('this event has already been saved with id = ', savedEvent.id);
+                        setEventIsSaved(true)
+                        setSavedId(savedEvent.id)
+                    }
+                });
+            })
+        }
+    },[isLoading, profile, eventId])
+
+
+    function handleDelete () {
+        deleteSavedEventById(savedId)
+        .then(({ deletedEvent }) => {
+            setSavedId('')
+            setEventIsSaved(false)
+        })
+    }
+
+    function handleSave () {
+        saveEvent(profile, event)
+        .then(({ savedEvent }) => {
+            setSavedId(savedEvent.id)
+            setEventIsSaved(true)
+        })
+    }
+
     return(   
         <main className='responsive-page-sizing'>
             {isLoading 
@@ -65,9 +110,38 @@ export default function EventPage () {
                         {event.description}
                         </Card.Text>
                         <div className="d-grid gap-2">
+                            {eventIsSaved 
+                                ? <Button
+                                    onClick={handleDelete}
+                                    variant="danger"
+                                    size="lg"
+                                >
+                                    Remove from Saved Events
+                                </Button> 
+
+                                : <Button 
+                                    onClick={handleSave}
+                                    variant="success"
+                                    size="lg"
+                                >
+                                    Add to Saved Events
+                                </Button>}
+                            {/* {eventIsSaved 
+                                ? <LoadingButton 
+                                    asyncFunction={deleteSavedEventById}
+                                    args={[savedId]}
+                                    initialText='Remove from Saved Events'
+                                    initialVariant = "danger"
+                                />
+                                : <LoadingButton 
+                                    asyncFunction={saveEvent}
+                                    args={[profile, event]}
+                                    initialText='Add to Saved Events'
+                                />
+                            } */}
                             <LoadingButton 
                                 asyncFunction={addEventToGoogleCalendar}
-                                args={[paramsForTestAdminEvent]}
+                                args={[event]}
                                 initialText='Add to Google Calendar'
                             />
                         </div>
