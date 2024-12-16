@@ -40,16 +40,15 @@ export default function ProfilePage () {
                 initialVariant='success'
                 initialText={'Connect Google Calendar'}
                 successText = {'Google Calendar connected'}
-                />
-                <Button
-                  onClick={handleSignOut}
-                  variant="danger"
-                  size="lg"
-                >
-                  Sign out
-                </Button>
+              />
+              <Button
+                onClick={handleSignOut}
+                variant="danger"
+                size="lg"
+              >
+                Sign out
+              </Button>
             </div>
-            <button onClick={() => addCurrentUserToPublicUserProfiles(session)}>add user to publicprofiles</button>
           </main>
         )
       }
