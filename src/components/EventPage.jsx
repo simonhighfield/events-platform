@@ -88,6 +88,8 @@ export default function EventPage () {
             setSavedId('')
             setEventIsSaved(false)
         })
+        .catch((error) => {
+        })
     }
 
     function handleSave () {
@@ -95,6 +97,8 @@ export default function EventPage () {
         .then(({ savedEvent }) => {
             setSavedId(savedEvent.id)
             setEventIsSaved(true)
+        })
+        .catch((error) => {
         })
     }
 
