@@ -16,7 +16,7 @@ export default function HelloProfile () {
                     <span>Hello {profile.username}</span>
                     {profile.is_admin && <Badge bg="info" >Admin</Badge>}
                 </Container>
-                : <p>not logged in</p>
+                : <p>Sign in to save events and add them to your Google Calendar</p>
             }
         </>
     )
