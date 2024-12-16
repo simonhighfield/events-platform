@@ -1,9 +1,13 @@
+import { supabase } from "../utils/supabaseClient"
+import { Auth } from "@supabase/auth-ui-react"
+import { ThemeSupa } from '@supabase/auth-ui-shared'
 import { useContext, useEffect, useState } from "react"
 import { ProfileContext } from "../Contexts"
 import fetchSavedEventsByUserId from "../utils/fetchSavedEventsByUserId"
 import Loading from "./Loading"
 import EventsFeed from "./EventsFeed"
 import { generateSavedEvents } from "../utils/generateSavedEvents"
+import HelloProfile from "./HelloProfile"
 
 export default function Login() {
     const { profile } = useContext(ProfileContext)
@@ -33,17 +37,19 @@ export default function Login() {
     if (!profile) {
         return (
             <main className='responsive-page-sizing'>
-                <p>Please sign in to view your saved events</p>
+                <HelloProfile/>
+                <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} providers={[]}/>
+            </main>
+        )
+    } else {
+        return (
+            <main className='responsive-page-sizing'>
+                {isLoading
+                    ? <Loading/>
+                    : <EventsFeed events={eventsFound} />
+                }
             </main>
         )
     }
 
-    return (
-        <main className='responsive-page-sizing'>
-            {isLoading
-                ? <Loading/>
-                : <EventsFeed events={eventsFound} />
-            }
-        </main>
-    )
 }
