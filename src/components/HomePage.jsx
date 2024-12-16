@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
 import { GoogleTokenContext, ProfileContext, SessionContext } from '../Contexts'
-import HelloProfile from './HelloProfile.jsx';
 import fetchAndSortAllEvents from '../utils/fetchAndSortAllEvents.js';
 import skiddleParamsForClubEventsInManchester from '../data/skiddleParamsForClubEventsInManchester';
 import { postAdminEvent } from '../utils/postAdminEvent';
@@ -18,6 +17,7 @@ import connectGoogleAccount from '../utils/connectGoogleAccount.js';
 import { addEventToGoogleCalendar } from '../utils/addEventToGoogleCalendar.js';
 import EventsFeed from './EventsFeed.jsx';
 import Loading from './Loading.jsx';
+import HelloProfile from './HelloProfile';
 
 export default function HomePage () {
     const { profile } = useContext(ProfileContext)
@@ -127,11 +127,11 @@ export default function HomePage () {
     return (
         <main className='responsive-page-sizing'>
             <h1>HomePage.jsx</h1>
+            <HelloProfile/>
             {isLoading
                 ? <Loading/>
                 : <EventsFeed events={eventsFound} />
             }
-            <HelloProfile/>
             <button onClick={handleFetchAllEvents}>get all events</button>
             <button onClick={handlePostAdminEvent}>post test admin event</button>
             <button onClick={handleSaveEventSequence}>save a test event, fetch all, and delete the just saved one</button>
