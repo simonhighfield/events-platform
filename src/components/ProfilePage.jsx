@@ -8,7 +8,7 @@ import { SessionContext } from '../Contexts'
 import SessionId from './SessionId';
 
 
-export default function LoginPage () {
+export default function ProfilePage () {
     const { session } = useContext(SessionContext);
 
     if (!session) {

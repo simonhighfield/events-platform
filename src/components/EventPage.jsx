@@ -114,7 +114,7 @@ export default function EventPage () {
                         {event.description}
                         </Card.Text>
                         <div className="d-grid gap-2">
-                            {eventIsSaved 
+                            {eventIsSaved && profile
                                 ? <Button
                                     onClick={handleDelete}
                                     variant="danger"
@@ -146,7 +146,7 @@ export default function EventPage () {
                             <LoadingButton 
                                 asyncFunction={addEventToGoogleCalendar}
                                 args={[event]}
-                                initialText='Add to Google Calendar'
+                                initialText={profile ? 'Add to Google Calendar' : 'sign in to '}
                             />
                         </div>
                     </Card.Body>

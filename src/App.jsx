@@ -7,7 +7,7 @@ import { addCurrentUserToPublicUserProfiles } from './utils/addCurrentUserToPubl
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import HomePage from './components/HomePage';
-import LoginPage from './components/LoginPage';
+import ProfilePage from './components/ProfilePage';
 import SavedEventsPage from './components/SavedEventsPage';
 import AddEventPage from './components/AddEventPage';
 import NoPage from './components/NoPage';
@@ -35,7 +35,7 @@ function App() {
           <NavBar/>
           <Routes>
             <Route path='/' element={<HomePage/>} />
-            <Route path="login" element={<LoginPage/>} />
+            <Route path="login" element={<ProfilePage/>} />
             <Route path="saved-events" element={<SavedEventsPage/>} />
             <Route path="add-event" element={<AddEventPage/>} />
             <Route path='/events/:eventSource/:eventId' element={<EventPage/>} />
