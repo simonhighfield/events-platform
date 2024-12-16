@@ -21,7 +21,7 @@ export default function ProfilePage () {
       setGoogleToken(token)
     }
 
-
+    
 
     if (!session) {
         return (
@@ -46,7 +46,7 @@ export default function ProfilePage () {
                 asyncFunction={handleGoogleSignIn}
                 initialVariant='success'
                 initialText={'Connect Google Calendar'}
-                endText = {'Google Calendar connected'}
+                successText = {'Google Calendar connected'}
               />
             </div>
             <button onClick={() => addCurrentUserToPublicUserProfiles(session)}>add user to publicprofiles</button>
