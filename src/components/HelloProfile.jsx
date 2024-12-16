@@ -1,6 +1,8 @@
 import { useContext } from 'react'
 import { SessionContext } from '../Contexts'
 import { ProfileContext } from '../Contexts'
+import Badge from 'react-bootstrap/Badge';
+import Container from 'react-bootstrap/Container';
 
 
 export default function HelloProfile () {
@@ -9,7 +11,13 @@ export default function HelloProfile () {
 
     return (
         <>
-            {profile ? (<p>Hello {profile.username}</p>) : (<p>not logged in</p>)}
+            {profile 
+                ? <Container className='d-flex' style={{marginBottom: '0.5rem', gap: '0.5rem', padding: 0}}>
+                    <span>Hello {profile.username}</span>
+                    {profile.is_admin && <Badge bg="info" >Admin</Badge>}
+                </Container>
+                : <p>not logged in</p>
+            }
         </>
     )
 }
