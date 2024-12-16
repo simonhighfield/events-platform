@@ -5,7 +5,7 @@ import { handleSignOut } from "../utils/handleSignOut"
 import { addCurrentUserToPublicUserProfiles } from "../utils/addCurrentUserToPublicUserProfiles"
 import { useContext } from 'react'
 import { GoogleTokenContext, SessionContext } from '../Contexts'
-import SessionId from './SessionId';
+import HelloProfile from './HelloProfile'
 import connectGoogleAccount from '../utils/connectGoogleAccount'
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
@@ -21,19 +21,17 @@ export default function ProfilePage () {
       setGoogleToken(token)
     }
 
-    
-
     if (!session) {
         return (
           <main className='responsive-page-sizing'>
-            <SessionId/>
+            <HelloProfile/>
             <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} providers={[]}/>
           </main>
         )
       } else {
         return (
           <main className='responsive-page-sizing'>
-            <SessionId/>
+            <HelloProfile/>
             <div className="d-grid gap-2">
               <LoadingButton
                 asyncFunction={handleGoogleSignIn}

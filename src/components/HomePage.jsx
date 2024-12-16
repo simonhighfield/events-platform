@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import { GoogleTokenContext, ProfileContext, SessionContext } from '../Contexts'
-import SessionId from './SessionId';
+import HelloProfile from './HelloProfile.jsx';
 import fetchAndSortAllEvents from '../utils/fetchAndSortAllEvents.js';
 import skiddleParamsForClubEventsInManchester from '../data/skiddleParamsForClubEventsInManchester';
 import { postAdminEvent } from '../utils/postAdminEvent';
@@ -131,7 +131,7 @@ export default function HomePage () {
                 ? <Loading/>
                 : <EventsFeed events={eventsFound} />
             }
-            <SessionId/>
+            <HelloProfile/>
             <button onClick={handleFetchAllEvents}>get all events</button>
             <button onClick={handlePostAdminEvent}>post test admin event</button>
             <button onClick={handleSaveEventSequence}>save a test event, fetch all, and delete the just saved one</button>
