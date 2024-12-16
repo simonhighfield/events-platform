@@ -15,6 +15,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { SessionContext, ProfileContext, GoogleTokenContext } from './Contexts'
 import initialiseGoogleApiClient from './utils/initialiseGoogleApiClient'
 import EventPage from './components/EventPage'
+import SignInPage from './components/SigninPage'
 
 function App() {
   const [session, setSession] = useState(null)
@@ -35,6 +36,7 @@ function App() {
           <NavBar/>
           <Routes>
             <Route path='/' element={<HomePage/>} />
+            <Route path="sign-in" element={<SignInPage/>} />
             <Route path="profile" element={<ProfilePage/>} />
             <Route path="saved-events" element={<SavedEventsPage/>} />
             <Route path="add-event" element={<AddEventPage/>} />
