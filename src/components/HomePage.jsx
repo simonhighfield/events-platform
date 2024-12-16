@@ -17,7 +17,7 @@ import connectGoogleAccount from '../utils/connectGoogleAccount.js';
 import { addEventToGoogleCalendar } from '../utils/addEventToGoogleCalendar.js';
 import EventsFeed from './EventsFeed.jsx';
 import Loading from './Loading.jsx';
-import HelloProfile from './HelloProfile';
+import HelloProfile from './HelloProfile.jsx';
 
 export default function HomePage () {
     const { profile } = useContext(ProfileContext)
