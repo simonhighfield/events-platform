@@ -29,7 +29,7 @@ export default function EventPage () {
     const [eventDate, setEventDate] = useState(null)
     const { profile } = useContext(ProfileContext)    
     const [eventIsSaved, setEventIsSaved] = useState(false)
-    const [savedId, setSavedId] = useState('')
+    const [savedId, setSavedId] = useState('')    
 
     useEffect(() => {
         setIsLoading(true)
@@ -114,40 +114,45 @@ export default function EventPage () {
                         {event.description}
                         </Card.Text>
                         <div className="d-grid gap-2">
-                            {eventIsSaved && profile
-                                ? <Button
-                                    onClick={handleDelete}
-                                    variant="danger"
-                                    size="lg"
-                                >
-                                    Remove from Saved Events
-                                </Button> 
+                            {!profile ? <span>need to sign in</span>
+                                :
+                                <>
+                                    {eventIsSaved
+                                        ? <Button
+                                            onClick={handleDelete}
+                                            variant="danger"
+                                            size="lg"
+                                        >
+                                            Remove from Saved Events
+                                        </Button> 
 
-                                : <Button 
-                                    onClick={handleSave}
-                                    variant="success"
-                                    size="lg"
-                                >
-                                    Add to Saved Events
-                                </Button>}
-                            {/* {eventIsSaved 
-                                ? <LoadingButton 
-                                    asyncFunction={deleteSavedEventById}
-                                    args={[savedId]}
-                                    initialText='Remove from Saved Events'
-                                    initialVariant = "danger"
-                                />
-                                : <LoadingButton 
-                                    asyncFunction={saveEvent}
-                                    args={[profile, event]}
-                                    initialText='Add to Saved Events'
-                                />
-                            } */}
-                            <LoadingButton 
-                                asyncFunction={addEventToGoogleCalendar}
-                                args={[event]}
-                                initialText={profile ? 'Add to Google Calendar' : 'sign in to '}
-                            />
+                                        : <Button 
+                                            onClick={handleSave}
+                                            variant="success"
+                                            size="lg"
+                                        >
+                                            Add to Saved Events
+                                        </Button>}
+                                    <LoadingButton 
+                                        asyncFunction={addEventToGoogleCalendar}
+                                        args={[event]}
+                                        initialText={'Add to Google Calendar'}
+                                    />
+                                </>
+                            }
+                                {/* {eventIsSaved 
+                                    ? <LoadingButton 
+                                        asyncFunction={deleteSavedEventById}
+                                        args={[savedId]}
+                                        initialText='Remove from Saved Events'
+                                        initialVariant = "danger"
+                                    />
+                                    : <LoadingButton 
+                                        asyncFunction={saveEvent}
+                                        args={[profile, event]}
+                                        initialText='Add to Saved Events'
+                                    />
+                                } */}
                         </div>
                     </Card.Body>
                     <ListGroup className="list-group-flush">
