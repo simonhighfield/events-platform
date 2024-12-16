@@ -21,13 +21,17 @@ export default function ProfilePage () {
       setGoogleToken(token)
     }
 
-  return (
-    <main className='responsive-page-sizing'>
-      <HelloProfile/>
-      {!session
-        ?
+    if (!session) {
+      return (
+        <main className='responsive-page-sizing'>
+          <HelloProfile/>
           <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} providers={[]}/>
-        :
+        </main>
+      )
+    } else {
+      return (
+        <main className='responsive-page-sizing'>
+          <HelloProfile/>
           <div className="d-grid gap-2">
             <LoadingButton
               asyncFunction={handleGoogleSignIn}
@@ -43,7 +47,34 @@ export default function ProfilePage () {
               Sign out
             </Button>
           </div>
-      }
-    </main>
-    )
+        </main>
+      )
+    }
+
+
+  // return (
+  //   <main className='responsive-page-sizing'>
+  //     <HelloProfile/>
+  //     {!session
+  //       ?
+  //         <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} providers={[]}/>
+  //       :
+  //         <div className="d-grid gap-2">
+  //           <LoadingButton
+  //             asyncFunction={handleGoogleSignIn}
+  //             initialVariant='success'
+  //             initialText={'Connect Google Calendar'}
+  //             successText = {'Google Calendar connected'}
+  //           />
+  //           <Button
+  //             onClick={handleSignOut}
+  //             variant="danger"
+  //             size="lg"
+  //           >
+  //             Sign out
+  //           </Button>
+  //         </div>
+  //     }
+  //   </main>
+  //   )
 }
