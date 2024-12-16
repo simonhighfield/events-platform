@@ -10,9 +10,22 @@ import connectGoogleAccount from '../utils/connectGoogleAccount'
 export default function SignInPage () {
     const { session } = useContext(SessionContext);
     const { token, setGoogleToken } = useContext(GoogleTokenContext)
+    console.log(session);
+    
 
-return (<main className='responsive-page-sizing'>
-    <HelloProfile/>
-    <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} providers={[]}/>
-  </main>)
+    if (!session) {
+        return (
+            <main className='responsive-page-sizing'>
+                <HelloProfile/>
+                <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} providers={[]}/>
+            </main>
+        )
+    } else {
+        return (
+            <main className='responsive-page-sizing'>
+                <HelloProfile/>
+            </main>
+        )
+    }
+
 }
