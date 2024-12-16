@@ -35,7 +35,7 @@ function App() {
           <NavBar/>
           <Routes>
             <Route path='/' element={<HomePage/>} />
-            <Route path="login" element={<ProfilePage/>} />
+            <Route path="profile" element={<ProfilePage/>} />
             <Route path="saved-events" element={<SavedEventsPage/>} />
             <Route path="add-event" element={<AddEventPage/>} />
             <Route path='/events/:eventSource/:eventId' element={<EventPage/>} />
