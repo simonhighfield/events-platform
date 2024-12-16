@@ -35,19 +35,19 @@ export default function ProfilePage () {
           <main className='responsive-page-sizing'>
             <SessionId/>
             <div className="d-grid gap-2">
-              {/* <Button
-                onClick={}
-                variant="danger"
-                size="lg"
-              >
-                Remove from Saved Events
-              </Button> */}
               <LoadingButton
                 asyncFunction={handleGoogleSignIn}
                 initialVariant='success'
                 initialText={'Connect Google Calendar'}
                 successText = {'Google Calendar connected'}
-              />
+                />
+                <Button
+                  onClick={handleSignOut}
+                  variant="danger"
+                  size="lg"
+                >
+                  Sign out
+                </Button>
             </div>
             <button onClick={() => addCurrentUserToPublicUserProfiles(session)}>add user to publicprofiles</button>
           </main>
