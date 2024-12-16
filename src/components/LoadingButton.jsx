@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 
-export default function LoadingButton({ asyncFunction, args = [], initialText = "Click to load", initialVariant = "primary" }) {
+export default function LoadingButton({ asyncFunction, args = [], initialText = "Click to load", initialVariant = "primary", endText = "Success" }) {
 //   const [isLoading, setIsLoading] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [buttonText, setButtonText] = useState(initialText);
@@ -15,7 +15,7 @@ export default function LoadingButton({ asyncFunction, args = [], initialText = 
 
     asyncFunction(...args)
       .then(() => {
-        setButtonText("Success");
+        setButtonText(endText);
         setButtonVariant("success");
         setButtonDisabled(true);
       })

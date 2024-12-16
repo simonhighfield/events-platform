@@ -7,6 +7,9 @@ import { useContext } from 'react'
 import { GoogleTokenContext, SessionContext } from '../Contexts'
 import SessionId from './SessionId';
 import connectGoogleAccount from '../utils/connectGoogleAccount'
+import ListGroup from 'react-bootstrap/ListGroup';
+import Button from 'react-bootstrap/Button';
+import LoadingButton from './LoadingButton';
 
 
 export default function ProfilePage () {
@@ -17,6 +20,8 @@ export default function ProfilePage () {
       const { token } = await connectGoogleAccount()
       setGoogleToken(token)
     }
+
+
 
     if (!session) {
         return (
@@ -29,8 +34,21 @@ export default function ProfilePage () {
         return (
           <main className='responsive-page-sizing'>
             <SessionId/>
-            <button onClick={handleGoogleSignIn}>connect to google</button>
-            <button onClick={handleSignOut}>sign out</button>
+            <div className="d-grid gap-2">
+              {/* <Button
+                onClick={}
+                variant="danger"
+                size="lg"
+              >
+                Remove from Saved Events
+              </Button> */}
+              <LoadingButton
+                asyncFunction={handleGoogleSignIn}
+                initialVariant='success'
+                initialText={'Connect Google Calendar'}
+                endText = {'Google Calendar connected'}
+              />
+            </div>
             <button onClick={() => addCurrentUserToPublicUserProfiles(session)}>add user to publicprofiles</button>
           </main>
         )
