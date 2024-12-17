@@ -13,7 +13,7 @@ export default function NavBar() {
                 <Link to={`/`}>Home</Link><span> </span>
             </Nav.Item>
             <Nav.Item>
-                <Link to={`login`}>profile</Link><span> </span>
+                <Link to={`profile`}>profile</Link><span> </span>
             </Nav.Item>
         </Nav>
     )

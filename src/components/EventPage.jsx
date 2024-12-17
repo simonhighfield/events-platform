@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from 'react'
-import { ProfileContext, SessionContext } from '../Contexts'
+import { GoogleTokenContext, ProfileContext, SessionContext } from '../Contexts'
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import { convertDateToYYYYMMDD } from '../utils/convertDateToYYYYMMDD';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import fetchSkiddleEventById from "../utils/fetchSkiddleEventById";
 import fetchAdminEventById from '../utils/fetchAdminEventById';
 import formatSkiddleEvent from '../utils/formatSkiddleEvent';
@@ -20,6 +20,7 @@ import deleteSavedEventById from '../utils/deleteSavedEventById';
 import fetchSavedEventsByUserId from '../utils/fetchSavedEventsByUserId';
 import getEventId from '../utils/getEventId';
 import deleteAdminEventById from '../utils/deleteAdminEventById';
+import connectGoogleAccount from '../utils/connectGoogleAccount'
 
 
 export default function EventPage () {
@@ -29,7 +30,23 @@ export default function EventPage () {
     const [eventDate, setEventDate] = useState(null)
     const { profile } = useContext(ProfileContext)    
     const [eventIsSaved, setEventIsSaved] = useState(false)
-    const [savedId, setSavedId] = useState('')
+    const [savedId, setSavedId] = useState('')    
+    const navigate = useNavigate()
+    const location = useLocation()
+    const { googleToken, setGoogleToken } = useContext(GoogleTokenContext)
+    
+
+    async function handleGoogleSignIn() {
+        const { token } = await connectGoogleAccount()
+        console.log('set it to', token);
+        setGoogleToken(token)
+        setGoogleConnected(true)
+    }
+    
+    useEffect(() => {
+        console.log(googleToken);
+    },[googleToken])
+
 
     useEffect(() => {
         setIsLoading(true)
@@ -88,6 +105,8 @@ export default function EventPage () {
             setSavedId('')
             setEventIsSaved(false)
         })
+        .catch((error) => {
+        })
     }
 
     function handleSave () {
@@ -96,7 +115,13 @@ export default function EventPage () {
             setSavedId(savedEvent.id)
             setEventIsSaved(true)
         })
+        .catch((error) => {
+        })
     }
+
+    function handleNavigateToSignin() {        
+        navigate('/sign-in', {state: {previousUrl: location.pathname}});
+    }   
 
     return(   
         <main className='responsive-page-sizing'>
@@ -110,40 +135,63 @@ export default function EventPage () {
                         {event.description}
                         </Card.Text>
                         <div className="d-grid gap-2">
-                            {eventIsSaved 
-                                ? <Button
-                                    onClick={handleDelete}
-                                    variant="danger"
-                                    size="lg"
-                                >
-                                    Remove from Saved Events
-                                </Button> 
-
-                                : <Button 
-                                    onClick={handleSave}
+                            {!profile 
+                                ? <Button 
+                                    onClick={handleNavigateToSignin}
                                     variant="success"
                                     size="lg"
                                 >
-                                    Add to Saved Events
-                                </Button>}
-                            {/* {eventIsSaved 
-                                ? <LoadingButton 
-                                    asyncFunction={deleteSavedEventById}
-                                    args={[savedId]}
-                                    initialText='Remove from Saved Events'
-                                    initialVariant = "danger"
-                                />
-                                : <LoadingButton 
-                                    asyncFunction={saveEvent}
-                                    args={[profile, event]}
-                                    initialText='Add to Saved Events'
-                                />
-                            } */}
-                            <LoadingButton 
-                                asyncFunction={addEventToGoogleCalendar}
-                                args={[event]}
-                                initialText='Add to Google Calendar'
-                            />
+                                    Sign in to save event
+                                </Button>
+                                :
+                                <>
+                                    {eventIsSaved
+                                        ? <Button
+                                            onClick={handleDelete}
+                                            variant="danger"
+                                            size="lg"
+                                        >
+                                            Remove from Saved Events
+                                        </Button> 
+
+                                        : <Button 
+                                            onClick={handleSave}
+                                            variant="success"
+                                            size="lg"
+                                        >
+                                            Add to Saved Events
+                                        </Button>
+                                    }
+                                    {!googleToken &&
+                                        <LoadingButton
+                                            asyncFunction={handleGoogleSignIn}
+                                            initialVariant='success'
+                                            initialText={'Connect Google Calendar'}
+                                            successText = {'Google Calendar connected'}
+                                    />
+                                    }
+                                    {googleToken &&
+                                        <LoadingButton 
+                                            asyncFunction={addEventToGoogleCalendar}
+                                            args={[event]}
+                                            initialText={'Add to Google Calendar'}
+                                        />
+                                    }
+                                </>
+                            }
+                                {/* {eventIsSaved 
+                                    ? <LoadingButton 
+                                        asyncFunction={deleteSavedEventById}
+                                        args={[savedId]}
+                                        initialText='Remove from Saved Events'
+                                        initialVariant = "danger"
+                                    />
+                                    : <LoadingButton 
+                                        asyncFunction={saveEvent}
+                                        args={[profile, event]}
+                                        initialText='Add to Saved Events'
+                                    />
+                                } */}
                         </div>
                     </Card.Body>
                     <ListGroup className="list-group-flush">
