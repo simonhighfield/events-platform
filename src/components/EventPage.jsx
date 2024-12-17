@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-import { ProfileContext, SessionContext } from '../Contexts'
+import { GoogleTokenContext, ProfileContext, SessionContext } from '../Contexts'
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
@@ -20,6 +20,7 @@ import deleteSavedEventById from '../utils/deleteSavedEventById';
 import fetchSavedEventsByUserId from '../utils/fetchSavedEventsByUserId';
 import getEventId from '../utils/getEventId';
 import deleteAdminEventById from '../utils/deleteAdminEventById';
+import connectGoogleAccount from '../utils/connectGoogleAccount'
 
 
 export default function EventPage () {
@@ -32,6 +33,20 @@ export default function EventPage () {
     const [savedId, setSavedId] = useState('')    
     const navigate = useNavigate()
     const location = useLocation()
+    const { googleToken, setGoogleToken } = useContext(GoogleTokenContext)
+    
+
+    async function handleGoogleSignIn() {
+        const { token } = await connectGoogleAccount()
+        console.log('set it to', token);
+        setGoogleToken(token)
+        setGoogleConnected(true)
+    }
+    
+    useEffect(() => {
+        console.log(googleToken);
+    },[googleToken])
+
 
     useEffect(() => {
         setIsLoading(true)
@@ -145,12 +160,23 @@ export default function EventPage () {
                                             size="lg"
                                         >
                                             Add to Saved Events
-                                        </Button>}
-                                    <LoadingButton 
-                                        asyncFunction={addEventToGoogleCalendar}
-                                        args={[event]}
-                                        initialText={'Add to Google Calendar'}
+                                        </Button>
+                                    }
+                                    {!googleToken &&
+                                        <LoadingButton
+                                            asyncFunction={handleGoogleSignIn}
+                                            initialVariant='success'
+                                            initialText={'Connect Google Calendar'}
+                                            successText = {'Google Calendar connected'}
                                     />
+                                    }
+                                    {googleToken &&
+                                        <LoadingButton 
+                                            asyncFunction={addEventToGoogleCalendar}
+                                            args={[event]}
+                                            initialText={'Add to Google Calendar'}
+                                        />
+                                    }
                                 </>
                             }
                                 {/* {eventIsSaved 

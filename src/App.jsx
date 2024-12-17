@@ -20,7 +20,7 @@ import SignInPage from './components/SigninPage'
 function App() {
   const [session, setSession] = useState(null)
   const [profile, setProfile] = useState(null)
-  const [googleToken, setGoogleToken] = useState([])
+  const [googleToken, setGoogleToken] = useState(null)
 
   useEffect(() => {    
     initialiseGoogleApiClient()
