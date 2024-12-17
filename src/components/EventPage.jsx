@@ -4,7 +4,7 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import { convertDateToYYYYMMDD } from '../utils/convertDateToYYYYMMDD';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import fetchSkiddleEventById from "../utils/fetchSkiddleEventById";
 import fetchAdminEventById from '../utils/fetchAdminEventById';
 import formatSkiddleEvent from '../utils/formatSkiddleEvent';
@@ -30,6 +30,8 @@ export default function EventPage () {
     const { profile } = useContext(ProfileContext)    
     const [eventIsSaved, setEventIsSaved] = useState(false)
     const [savedId, setSavedId] = useState('')    
+    const navigate = useNavigate()
+    const location = useLocation()
 
     useEffect(() => {
         setIsLoading(true)
@@ -102,6 +104,10 @@ export default function EventPage () {
         })
     }
 
+    function handleNavigateToSignin() {        
+        navigate('/sign-in', {state: {previousUrl: location.pathname}});
+    }   
+
     return(   
         <main className='responsive-page-sizing'>
             {isLoading 
@@ -114,7 +120,14 @@ export default function EventPage () {
                         {event.description}
                         </Card.Text>
                         <div className="d-grid gap-2">
-                            {!profile ? <span>need to sign in</span>
+                            {!profile 
+                                ? <Button 
+                                    onClick={handleNavigateToSignin}
+                                    variant="success"
+                                    size="lg"
+                                >
+                                    Sign in to save event
+                                </Button>
                                 :
                                 <>
                                     {eventIsSaved
