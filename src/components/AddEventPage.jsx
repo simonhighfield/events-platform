@@ -2,6 +2,10 @@ import { useContext } from 'react';
 import { ProfileContext } from '../Contexts';
 import paramsForTestAdminEvent from '../data/paramsForTestAdminEvent';
 import { postAdminEvent } from '../utils/postAdminEvent';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 
 export default function AddEventPage() {
     const { profile } = useContext(ProfileContext)
@@ -17,11 +21,47 @@ export default function AddEventPage() {
         })
     }
 
-
     return (
         <main className='responsive-page-sizing'>
-           <h1>AddEventPage.jsx</h1>
-           <button onClick={handlePostAdminEvent}>post test admin event</button>
+           <h1>Add a new event</h1>
+           {/* <button onClick={handlePostAdminEvent}>post test admin event</button> */}
+
+            <Form>
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                    <Form.Label>Event Name</Form.Label>
+                    <Form.Control 
+                        type="text" 
+                        placeholder="Name it something grabby" 
+                        size="lg"
+                        />
+                </Form.Group>
+                <Row>
+                    <Form.Group as={Col} className="mb-3" controlId="exampleForm.ControlInput1">
+                        <Form.Label>Event Date</Form.Label>
+                        <Form.Control type="date" placeholder="name@example.com" size="lg"/>
+                    </Form.Group>
+                    <Form.Group as={Col} className="mb-3" controlId="exampleForm.ControlInput1">
+                        <Form.Label>Event Time</Form.Label>
+                        <Form.Control type="time" placeholder="name@example.com" size="lg"/>
+                    </Form.Group>
+                </Row>
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                    <Form.Label>Artists</Form.Label>
+                    <Form.Control type="text" placeholder="Artist 1, Artist 2, etc" size="lg"/>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                    <Form.Label>Location</Form.Label>
+                    <Form.Control type="text" placeholder="Name of the venue" size="lg"/>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                    <Form.Label>Event Description</Form.Label>
+                    <Form.Control as="textarea" rows={8} size="lg" placeholder="Describe your party"/>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                    <Form.Label>Photo URL</Form.Label>
+                    <Form.Control type="url" placeholder="Enter a URL" size="lg"/>
+                </Form.Group>
+            </Form> 
         </main>
     )
 }
