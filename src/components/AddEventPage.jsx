@@ -24,6 +24,7 @@ export default function AddEventPage() {
     const handleSubmit = (event) => {
         const form = event.currentTarget;
         event.preventDefault();
+        setValidated(true);
 
         if (form.checkValidity() === false) {
             event.stopPropagation();
@@ -47,14 +48,13 @@ export default function AddEventPage() {
                 console.log(error);
             })
         } 
-        setValidated(true);
     };
 
     return (
         <main className='responsive-page-sizing'>
            <h1>Add a new event</h1>
            <Form noValidate validated={validated} onSubmit={handleSubmit}>
-                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                <Form.Group className="mb-3" controlId="eventName">
                     <Form.Label>Event Name</Form.Label>
                     <Form.Control 
                         type="text" 
@@ -68,8 +68,9 @@ export default function AddEventPage() {
                         Please enter an event name
                     </Form.Control.Feedback>
                 </Form.Group>
+
                 <Row>
-                    <Form.Group as={Col} className="mb-3" controlId="exampleForm.ControlInput1">
+                    <Form.Group as={Col} className="mb-3" controlId="eventDate">
                         <Form.Label>Event Date</Form.Label>
                         <Form.Control 
                             type="date" 
@@ -83,7 +84,8 @@ export default function AddEventPage() {
                             Please enter an event date
                         </Form.Control.Feedback>
                     </Form.Group>
-                    <Form.Group as={Col} className="mb-3" controlId="exampleForm.ControlInput1">
+
+                    <Form.Group as={Col} className="mb-3" controlId="eventTime">
                         <Form.Label>Event Time</Form.Label>
                         <Form.Control 
                             type="time" 
@@ -98,7 +100,8 @@ export default function AddEventPage() {
                         </Form.Control.Feedback>
                     </Form.Group>
                 </Row>
-                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+
+                <Form.Group className="mb-3" controlId="location">
                     <Form.Label>Location</Form.Label>
                     <Form.Control 
                         type="text" 
@@ -112,7 +115,8 @@ export default function AddEventPage() {
                         Please enter an event location
                     </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+
+                <Form.Group className="mb-3" controlId="artists">
                     <Form.Label>Artists</Form.Label>
                     <Form.Control 
                         type="text" 
@@ -122,7 +126,7 @@ export default function AddEventPage() {
                         onChange={(event) => setContributors(event.target.value)}
                     />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                <Form.Group className="mb-3" controlId="description">
                     <Form.Label>Event Description</Form.Label>
                     <Form.Control 
                         as="textarea" 
@@ -133,7 +137,8 @@ export default function AddEventPage() {
                         onChange={(event) => setDescription(event.target.value)}
                     />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+
+                <Form.Group className="mb-3" controlId="photoUrl">
                     <Form.Label>Photo URL</Form.Label>
                     <Form.Control 
                         type="url" 
@@ -143,6 +148,7 @@ export default function AddEventPage() {
                         onChange={(event) => setPhotoUrl(event.target.value)}
                     />
                 </Form.Group>
+
                 <Button type="submit">Submit form</Button>
             </Form>
         </main>
