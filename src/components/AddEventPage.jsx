@@ -7,6 +7,7 @@ import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import { getDateAsObject } from '../utils/getDateAsObject';
+import { useNavigate } from 'react-router-dom';
 
 export default function AddEventPage() {
     const { profile } = useContext(ProfileContext);
@@ -18,6 +19,7 @@ export default function AddEventPage() {
     const [description, setDescription] = useState('');
     const [photoUrl, setPhotoUrl] = useState('');
     const [validated, setValidated] = useState(false);
+    const navigate = useNavigate();
 
     const handleSubmit = (event) => {
         const form = event.currentTarget;
@@ -39,13 +41,13 @@ export default function AddEventPage() {
             
             postAdminEvent(eventData)
             .then(({ event })=> {
-                console.log('successfully posted: ', event);
-                setValidated(true);
+                navigate(`/events/admin/${event.admin_event_id}`)
             })
             .catch(({ error }) => {
                 console.log(error);
             })
         } 
+        setValidated(true);
     };
 
     return (
