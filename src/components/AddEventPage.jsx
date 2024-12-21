@@ -26,35 +26,27 @@ export default function AddEventPage() {
         if (form.checkValidity() === false) {
             event.stopPropagation();
         } else {    
-            console.log('success');        
+            const eventData = {
+                admin_id: profile.id,
+                event_name: eventName,
+                event_date: getDateAsObject(eventDate, eventTime),
+                location: location,
+                contributors: contributors.split(', '),
+                event_photo_url: photoUrl,
+                description: description,
+                additional_data: null,
+            };
+            
+            postAdminEvent(eventData)
+            .then(({ event })=> {
+                console.log('successfully posted: ', event);
+                setValidated(true);
+            })
+            .catch(({ error }) => {
+                console.log(error);
+            })
         } 
-  
-      setValidated(true);
     };
-
-
-    function handlePostAdminEvent() {        
-        const eventData = {
-            admin_id: profile.id,
-            event_name: eventName,
-            event_date: getDateAsObject(eventDate, eventTime),
-            location: location,
-            contributors: contributors.split(', '),
-            event_photo_url: photoUrl,
-            description: description,
-            additional_data: null,
-        };
-        console.log(eventData);
-
-        // paramsForTestAdminEvent.admin_id = profile.id
-        // postAdminEvent(paramsForTestAdminEvent)
-        // .then(({ event })=> {
-        //     console.log('successfully posted: ', event);
-        // })
-        // .catch(({ error }) => {
-        //     console.log(error);
-        // })
-    }
 
     return (
         <main className='responsive-page-sizing'>
@@ -151,7 +143,6 @@ export default function AddEventPage() {
                 </Form.Group>
                 <Button type="submit">Submit form</Button>
             </Form>
-           <button onClick={handlePostAdminEvent}>post event</button>
         </main>
     );
 }
