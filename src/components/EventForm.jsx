@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ProfileContext } from '../Contexts';
 import paramsForTestAdminEvent from '../data/paramsForTestAdminEvent';
 import { postAdminEvent } from '../utils/postAdminEvent';
@@ -8,19 +8,24 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import { getDateAsObject } from '../utils/getDateAsObject';
 import { useNavigate } from 'react-router-dom';
+import { getEventContributors } from './getEventContributors';
+import { convertDateToYYYYMMDD } from '../utils/convertDateToYYYYMMDD';
+import { getTimefromDateinHHMM } from '../utils/getTimefromDateinHHMM';
 
-export default function EventForm() {
+export default function EventForm( { event } ) {
     const { profile } = useContext(ProfileContext);
-    const [eventName, setEventName] = useState('');
-    const [eventDate, setEventDate] = useState('');
-    const [eventTime, setEventTime] = useState('');
-    const [contributors, setContributors] = useState('');
-    const [location, setLocation] = useState('');
-    const [description, setDescription] = useState('');
-    const [photoUrl, setPhotoUrl] = useState('');
     const [validated, setValidated] = useState(false);
-    const navigate = useNavigate();
-
+    const navigate = useNavigate();    
+    
+    const { event_name='', event_date='', location='', description='', event_photo_url='', contributors=[]} = event
+    const [eventName, setEventName] = useState(event_name);
+    const [eventDate, setEventDate] = useState(convertDateToYYYYMMDD(event_date));
+    const [eventTime, setEventTime] = useState(getTimefromDateinHHMM(event_date));
+    const [eventContributors, setEventContributors] = useState(getEventContributors(event));
+    const [eventLocation, setEventLocation] = useState(location);
+    const [eventDescription, setEventDescription] = useState(description);
+    const [photoUrl, setPhotoUrl] = useState(event_photo_url);
+    
     const handleSubmit = (event) => {
         const form = event.currentTarget;
         event.preventDefault();
@@ -33,10 +38,10 @@ export default function EventForm() {
                 admin_id: profile.id,
                 event_name: eventName,
                 event_date: getDateAsObject(eventDate, eventTime),
-                location: location,
-                contributors: contributors.split(', '),
+                eventLocation: eventLocation,
+                eventContributors: eventContributors.split(', '),
                 event_photo_url: photoUrl,
-                description: description,
+                eventDescription: eventDescription,
                 additional_data: null,
             };
             
@@ -99,18 +104,18 @@ export default function EventForm() {
                 </Form.Group>
             </Row>
 
-            <Form.Group className="mb-3" controlId="location">
+            <Form.Group className="mb-3" controlId="eventLocation">
                 <Form.Label>Location</Form.Label>
                 <Form.Control 
                     type="text" 
                     placeholder="Name of the venue" 
                     size="lg"
-                    value={location}
-                    onChange={(event) => setLocation(event.target.value)}
+                    value={eventLocation}
+                    onChange={(event) => setEventLocation(event.target.value)}
                     required
                 />
                 <Form.Control.Feedback type="invalid">
-                    Please enter an event location
+                    Please enter an event eventLocation
                 </Form.Control.Feedback>
             </Form.Group>
 
@@ -120,19 +125,19 @@ export default function EventForm() {
                     type="text" 
                     placeholder="Artist 1, Artist 2, etc" 
                     size="lg"
-                    value={contributors}
-                    onChange={(event) => setContributors(event.target.value)}
+                    value={eventContributors}
+                    onChange={(event) => setEventContributors(event.target.value)}
                 />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="description">
-                <Form.Label>Event Description</Form.Label>
+            <Form.Group className="mb-3" controlId="eventDescription">
+                <Form.Label>Event eventDescription</Form.Label>
                 <Form.Control 
                     as="textarea" 
                     rows={8} 
                     size="lg" 
                     placeholder="Describe your party"
-                    value={description}
-                    onChange={(event) => setDescription(event.target.value)}
+                    value={eventDescription}
+                    onChange={(event) => setEventDescription(event.target.value)}
                 />
             </Form.Group>
 
