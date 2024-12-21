@@ -12,20 +12,31 @@ import { getEventContributors } from './getEventContributors';
 import { convertDateToYYYYMMDD } from '../utils/convertDateToYYYYMMDD';
 import { getTimefromDateinHHMM } from '../utils/getTimefromDateinHHMM';
 
-export default function EventForm( { event } ) {
+export default function EventForm( { event = {}} ) {
     const { profile } = useContext(ProfileContext);
     const [validated, setValidated] = useState(false);
     const navigate = useNavigate();    
     
     const { event_name='', event_date='', location='', description='', event_photo_url='', contributors=[]} = event
     const [eventName, setEventName] = useState(event_name);
-    const [eventDate, setEventDate] = useState(convertDateToYYYYMMDD(event_date));
-    const [eventTime, setEventTime] = useState(getTimefromDateinHHMM(event_date));
-    const [eventContributors, setEventContributors] = useState(getEventContributors(event));
+    const [eventDate, setEventDate] = useState('');
+    const [eventTime, setEventTime] = useState('');
+    const [eventContributors, setEventContributors] = useState('');
     const [eventLocation, setEventLocation] = useState(location);
     const [eventDescription, setEventDescription] = useState(description);
     const [photoUrl, setPhotoUrl] = useState(event_photo_url);
     
+    useEffect(() => {
+        if (event_date) {
+            setEventDate(convertDateToYYYYMMDD(event_date))
+            setEventTime(getTimefromDateinHHMM(event_date))
+        }
+        if (contributors.length > 0) {
+            setEventContributors(getEventContributors(event))
+        }
+    },[])
+
+
     const handleSubmit = (event) => {
         const form = event.currentTarget;
         event.preventDefault();
