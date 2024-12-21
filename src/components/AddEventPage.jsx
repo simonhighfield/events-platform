@@ -17,9 +17,23 @@ export default function AddEventPage() {
     const [location, setLocation] = useState('');
     const [description, setDescription] = useState('');
     const [photoUrl, setPhotoUrl] = useState('');
+    const [validated, setValidated] = useState(false);
 
-    function handlePostAdminEvent() {
-        
+    const handleSubmit = (event) => {
+        const form = event.currentTarget;
+        event.preventDefault();
+
+        if (form.checkValidity() === false) {
+            event.stopPropagation();
+        } else {    
+            console.log('success');        
+        } 
+  
+      setValidated(true);
+    };
+
+
+    function handlePostAdminEvent() {        
         const eventData = {
             admin_id: profile.id,
             event_name: eventName,
@@ -45,7 +59,7 @@ export default function AddEventPage() {
     return (
         <main className='responsive-page-sizing'>
            <h1>Add a new event</h1>
-            <Form>
+           <Form noValidate validated={validated} onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Label>Event Name</Form.Label>
                     <Form.Control 
@@ -54,7 +68,11 @@ export default function AddEventPage() {
                         size="lg"
                         value={eventName}
                         onChange={(event) => setEventName(event.target.value)}
+                        required
                     />
+                    <Form.Control.Feedback type="invalid">
+                        Please enter an event name
+                    </Form.Control.Feedback>
                 </Form.Group>
                 <Row>
                     <Form.Group as={Col} className="mb-3" controlId="exampleForm.ControlInput1">
@@ -65,7 +83,11 @@ export default function AddEventPage() {
                             size="lg" 
                             value={eventDate}
                             onChange={(event) => setEventDate(event.target.value)}
+                            required
                         />
+                        <Form.Control.Feedback type="invalid">
+                            Please enter an event date
+                        </Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group as={Col} className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Event Time</Form.Label>
@@ -75,19 +97,13 @@ export default function AddEventPage() {
                             size="lg"
                             value={eventTime}
                             onChange={(event) => setEventTime(event.target.value)}
+                            required
                         />
+                        <Form.Control.Feedback type="invalid">
+                            Please enter an event time
+                        </Form.Control.Feedback>
                     </Form.Group>
                 </Row>
-                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                    <Form.Label>Artists</Form.Label>
-                    <Form.Control 
-                        type="text" 
-                        placeholder="Artist 1, Artist 2, etc" 
-                        size="lg"
-                        value={contributors}
-                        onChange={(event) => setContributors(event.target.value)}
-                    />
-                </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Label>Location</Form.Label>
                     <Form.Control 
@@ -96,6 +112,20 @@ export default function AddEventPage() {
                         size="lg"
                         value={location}
                         onChange={(event) => setLocation(event.target.value)}
+                        required
+                    />
+                    <Form.Control.Feedback type="invalid">
+                        Please enter an event location
+                    </Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                    <Form.Label>Artists</Form.Label>
+                    <Form.Control 
+                        type="text" 
+                        placeholder="Artist 1, Artist 2, etc" 
+                        size="lg"
+                        value={contributors}
+                        onChange={(event) => setContributors(event.target.value)}
                     />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
@@ -119,6 +149,7 @@ export default function AddEventPage() {
                         onChange={(event) => setPhotoUrl(event.target.value)}
                     />
                 </Form.Group>
+                <Button type="submit">Submit form</Button>
             </Form>
            <button onClick={handlePostAdminEvent}>post event</button>
         </main>
