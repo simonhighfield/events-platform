@@ -13,7 +13,7 @@ export default function AddEventPage() {
     const [eventName, setEventName] = useState('');
     const [eventDate, setEventDate] = useState('');
     const [eventTime, setEventTime] = useState('');
-    const [artists, setArtists] = useState('');
+    const [contributors, setContributors] = useState('');
     const [location, setLocation] = useState('');
     const [description, setDescription] = useState('');
     const [photoUrl, setPhotoUrl] = useState('');
@@ -25,6 +25,7 @@ export default function AddEventPage() {
             event_name: eventName,
             event_date: getDateAsObject(eventDate, eventTime),
             location: location,
+            contributors: contributors.split(', '),
             event_photo_url: photoUrl,
             description: description,
             additional_data: null,
@@ -83,8 +84,8 @@ export default function AddEventPage() {
                         type="text" 
                         placeholder="Artist 1, Artist 2, etc" 
                         size="lg"
-                        value={artists}
-                        onChange={(event) => setArtists(event.target.value)}
+                        value={contributors}
+                        onChange={(event) => setContributors(event.target.value)}
                     />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
