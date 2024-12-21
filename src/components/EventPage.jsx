@@ -182,7 +182,7 @@ export default function EventPage () {
                                             initialText={'Add to Google Calendar'}
                                         />
                                     }
-                                    {profile.is_admin && 
+                                    {profile.is_admin && eventSource === 'admin' &&
                                         <Button
                                             onClick={handleEdit}
                                             variant="primary"
