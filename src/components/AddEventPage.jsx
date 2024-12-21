@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import { getDateAsObject } from '../utils/getDateAsObject';
 
 export default function AddEventPage() {
     const { profile } = useContext(ProfileContext);
@@ -19,10 +20,10 @@ export default function AddEventPage() {
 
     function handlePostAdminEvent() {
         
-
         const eventData = {
             admin_id: profile.id,
             event_name: eventName,
+            event_date: getDateAsObject(eventDate, eventTime),
             location: location,
             event_photo_url: photoUrl,
             description: description,
