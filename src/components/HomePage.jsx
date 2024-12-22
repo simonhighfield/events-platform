@@ -37,93 +37,6 @@ export default function HomePage () {
         })
     }, [])
 
-
-    function handleFetchAllEvents () {
-        fetchAndSortAllEvents(skiddleParamsForClubEventsInManchester)
-        .then(({ events }) => {
-            console.log('return in handle: ', events);
-        })
-        .catch((error) => {
-            window.alert(error.message)
-        })
-    }
-
-    function handlePostAdminEvent() {
-        paramsForTestAdminEvent.admin_id = profile.id
-        postAdminEvent(paramsForTestAdminEvent)
-        .then(({ event })=> {
-            console.log('successfully posted: ', event);
-            fetchAdminEvents()
-            .then(({ adminEvents }) => {
-                console.log(adminEvents);
-            })
-            .catch(({ error }) => {
-                console.log(error);
-            })
-        })
-    }
-
-    function handleSaveEventSequence() {
-        saveEvent(profile, paramsForTestSaveEvent)
-        .then(({ savedEvent }) => {
-            console.log('successfully saved: ', savedEvent);
-            fetchSavedEventsByUserId(profile.id)
-            .then(({ savedEvents }) => {
-                console.log('saved events: ', savedEvents);
-
-                Promise.all([
-                    generateSavedEvents(savedEvents), 
-                    deleteSavedEventById(savedEvents[0].id)
-                ])
-                .then (([generatedEvents, { deletedEvent }]) => {
-                    console.log('generatedEvents: ', generatedEvents)
-                    console.log('deleted saved event: ', deletedEvent);
-                })
-                .catch(({ error }) => {
-                    console.log(error.message);
-                })
-            })
-        })
-        .catch(({ error }) => {
-            console.log(error);
-        })
-    }
-
-    function handleSaveEvent() {
-        saveEvent(profile, paramsForTestSaveEvent)
-        .then(({ savedEvent }) => {
-            console.log('successfully saved: ', savedEvent);
-        })
-        .catch(({ error }) => {
-            console.log(error);
-        })
-    }
-
-
-    // function handleDeleteSavedEvent() {
-    //     console.log(paramsForTestSaveEvent);
-        
-    //     deleteSavedEventById(paramsForTestSaveEvent.id)        
-    //     .then (( { deletedEvent }) => {
-    //         console.log('deleted saved event: ', deletedEvent);
-    //     })
-    //     .catch(({ error }) => {
-    //         console.log(error.message);
-    //     })
-    // }
-
-    async function handleGoogleSignIn() {
-        const { token } = await connectGoogleAccount()
-        setGoogleToken(token)
-    }
-
-    function handleAddEventToGoogleCalendar() {
-        addEventToGoogleCalendar(paramsForTestAdminEvent, googleToken)
-        .then(({ eventAdded }) => {
-            console.log('In handle, Event added to cal: ', eventAdded);
-        })
-    }
-
     return (
         <main className='responsive-page-sizing'>
             <h1>Home</h1>
@@ -132,13 +45,6 @@ export default function HomePage () {
                 ? <Loading/>
                 : <EventsFeed events={eventsFound} />
             }
-            <button onClick={handleFetchAllEvents}>get all events</button>
-            <button onClick={handlePostAdminEvent}>post test admin event</button>
-            <button onClick={handleSaveEventSequence}>save a test event, fetch all, and delete the just saved one</button>
-            <button onClick={handleSaveEvent}>save test event</button>
-            {/* <button onClick={handleDeleteSavedEvent}>delete the test saved event</button> */}
-            <button onClick={handleGoogleSignIn}>connect to google</button>
-            <button onClick={handleAddEventToGoogleCalendar}>Add test event to google cal</button>
         </main>
     )
 }
