@@ -12,29 +12,30 @@ import { getEventContributors } from './getEventContributors';
 import { convertDateToYYYYMMDD } from '../utils/convertDateToYYYYMMDD';
 import { getTimefromDateinHHMM } from '../utils/getTimefromDateinHHMM';
 
-export default function EventForm( { event = {}} ) {
+export default function EventForm({ mode, event}) {
     const { profile } = useContext(ProfileContext);
     const [validated, setValidated] = useState(false);
     const navigate = useNavigate();    
     
-    const { event_name='', event_date='', location='', description='', event_photo_url='', contributors=[]} = event
-    const [eventName, setEventName] = useState(event_name);
+    const [eventName, setEventName] = useState('');
     const [eventDate, setEventDate] = useState('');
     const [eventTime, setEventTime] = useState('');
     const [eventContributors, setEventContributors] = useState('');
-    const [eventLocation, setEventLocation] = useState(location);
-    const [eventDescription, setEventDescription] = useState(description);
-    const [photoUrl, setPhotoUrl] = useState(event_photo_url);
-    
+    const [eventLocation, setEventLocation] = useState('');
+    const [eventDescription, setEventDescription] = useState('');
+    const [photoUrl, setPhotoUrl] = useState('');
+
     useEffect(() => {
-        if (event_date) {
-            setEventDate(convertDateToYYYYMMDD(event_date))
-            setEventTime(getTimefromDateinHHMM(event_date))
+        if (mode === 'edit') {
+            setEventName(event.event_name || '');
+            setEventDate(convertDateToYYYYMMDD(event.event_date || ''));
+            setEventTime(getTimefromDateinHHMM(event.event_date || ''));
+            setEventContributors(getEventContributors(event) || '');
+            setEventLocation(event.location || '');
+            setEventDescription(event.description || '');
+            setPhotoUrl(event.event_photo_url || '');
         }
-        if (contributors.length > 0) {
-            setEventContributors(getEventContributors(event))
-        }
-    },[])
+    }, []);
 
 
     const handleSubmit = (event) => {
