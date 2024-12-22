@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { getEventContributors } from './getEventContributors';
 import { convertDateToYYYYMMDD } from '../utils/convertDateToYYYYMMDD';
 import { getTimefromDateinHHMM } from '../utils/getTimefromDateinHHMM';
+import { updateAdminEvent } from '../utils/updateAdminEvent';
 
 export default function EventForm({ mode, event}) {
     const { profile } = useContext(ProfileContext);
@@ -20,9 +21,9 @@ export default function EventForm({ mode, event}) {
     const [eventName, setEventName] = useState('');
     const [eventDate, setEventDate] = useState('');
     const [eventTime, setEventTime] = useState('');
-    const [eventContributors, setEventContributors] = useState('');
-    const [eventLocation, setEventLocation] = useState('');
-    const [eventDescription, setEventDescription] = useState('');
+    const [contributors, setContributors] = useState('');
+    const [location, setLocation] = useState('');
+    const [description, setDescription] = useState('');
     const [photoUrl, setPhotoUrl] = useState('');
 
     useEffect(() => {
@@ -30,17 +31,17 @@ export default function EventForm({ mode, event}) {
             setEventName(event.event_name || '');
             setEventDate(convertDateToYYYYMMDD(event.event_date || ''));
             setEventTime(getTimefromDateinHHMM(event.event_date || ''));
-            setEventContributors(getEventContributors(event) || '');
-            setEventLocation(event.location || '');
-            setEventDescription(event.description || '');
+            setContributors(getEventContributors(event) || '');
+            setLocation(event.location || '');
+            setDescription(event.description || '');
             setPhotoUrl(event.event_photo_url || '');
         }
     }, []);
 
 
-    const handleSubmit = (event) => {
-        const form = event.currentTarget;
-        event.preventDefault();
+    const handleSubmit = (e) => {
+        const form = e.currentTarget;
+        e.preventDefault();
         setValidated(true);
 
         if (form.checkValidity() === false) {
@@ -50,20 +51,33 @@ export default function EventForm({ mode, event}) {
                 admin_id: profile.id,
                 event_name: eventName,
                 event_date: getDateAsObject(eventDate, eventTime),
-                eventLocation: eventLocation,
-                eventContributors: eventContributors.split(', '),
+                location: location,
+                contributors: contributors.split(', '),
                 event_photo_url: photoUrl,
-                eventDescription: eventDescription,
+                description: description,
                 additional_data: null,
             };
             
-            postAdminEvent(eventData)
-            .then(({ event })=> {
-                navigate(`/events/admin/${event.admin_event_id}`)
-            })
-            .catch(({ error }) => {
-                console.log(error);
-            })
+            if (mode === 'edit') {
+                eventData.admin_event_id = event.admin_event_id
+
+                updateAdminEvent(eventData)
+                postAdminEvent(eventData)
+                .then(({ event })=> {
+                    navigate(`/events/admin/${event.admin_event_id}`)
+                })
+                .catch(({ error }) => {
+                    console.error(error);
+                })
+            } else {
+                postAdminEvent(eventData)
+                .then(({ event })=> {
+                    navigate(`/events/admin/${event.admin_event_id}`)
+                })
+                .catch(({ error }) => {
+                    console.error(error);
+                })
+            }
         } 
     };
 
@@ -116,18 +130,18 @@ export default function EventForm({ mode, event}) {
                 </Form.Group>
             </Row>
 
-            <Form.Group className="mb-3" controlId="eventLocation">
+            <Form.Group className="mb-3" controlId="location">
                 <Form.Label>Location</Form.Label>
                 <Form.Control 
                     type="text" 
                     placeholder="Name of the venue" 
                     size="lg"
-                    value={eventLocation}
-                    onChange={(event) => setEventLocation(event.target.value)}
+                    value={location}
+                    onChange={(event) => setLocation(event.target.value)}
                     required
                 />
                 <Form.Control.Feedback type="invalid">
-                    Please enter an event eventLocation
+                    Please enter an event location
                 </Form.Control.Feedback>
             </Form.Group>
 
@@ -137,19 +151,19 @@ export default function EventForm({ mode, event}) {
                     type="text" 
                     placeholder="Artist 1, Artist 2, etc" 
                     size="lg"
-                    value={eventContributors}
-                    onChange={(event) => setEventContributors(event.target.value)}
+                    value={contributors}
+                    onChange={(event) => setContributors(event.target.value)}
                 />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="eventDescription">
-                <Form.Label>Event eventDescription</Form.Label>
+            <Form.Group className="mb-3" controlId="description">
+                <Form.Label>Event Description</Form.Label>
                 <Form.Control 
                     as="textarea" 
                     rows={8} 
                     size="lg" 
                     placeholder="Describe your party"
-                    value={eventDescription}
-                    onChange={(event) => setEventDescription(event.target.value)}
+                    value={description}
+                    onChange={(event) => setDescription(event.target.value)}
                 />
             </Form.Group>
 
@@ -164,7 +178,15 @@ export default function EventForm({ mode, event}) {
                 />
             </Form.Group>
 
-            <Button type="submit">Submit form</Button>
+            <div className="d-grid gap-2">
+            <Button 
+                type="submit" 
+                size="lg"
+                variant={mode === 'edit' ? 'primary' : 'success'}
+            >
+                Save Event
+            </Button>
+            </div>
         </Form>
     );
 }

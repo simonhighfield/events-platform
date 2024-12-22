@@ -15,7 +15,6 @@ export default function EditEventPage () {
             fetchAdminEventById(eventId)
             .then(({ event }) => {
                 setEvent(event)
-                console.log(event);
                 
                 const formattedDate = convertDateToYYYYMMDD(event.event_date)
                 setEventDate(formattedDate)
