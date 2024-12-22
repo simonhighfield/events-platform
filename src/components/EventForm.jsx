@@ -81,6 +81,13 @@ export default function EventForm({ event, mode}) {
         } 
     };
 
+    function handleDelete (e) {
+        const form = e.currentTarget;
+        e.preventDefault();
+        console.log('delete!!!');
+    }
+
+
     return (
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="eventName">
@@ -179,13 +186,24 @@ export default function EventForm({ event, mode}) {
             </Form.Group>
 
             <div className="d-grid gap-2">
-            <Button 
-                type="submit" 
-                size="lg"
-                variant={mode === 'edit' ? 'primary' : 'success'}
-            >
-                Save Event
-            </Button>
+                <Button 
+                    type="submit" 
+                    size="lg"
+                    variant={mode === 'edit' ? 'primary' : 'success'}
+                    onClick={handleSubmit}
+                >
+                    Save Event
+                </Button>
+                { mode === 'edit' &&
+                    <Button
+                        type="submit"
+                        size="lg"
+                        variant={'danger'}
+                        onClick={handleDelete}
+                    >
+                        Delete Event
+                    </Button>
+                }
             </div>
         </Form>
     );
