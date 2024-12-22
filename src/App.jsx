@@ -8,7 +8,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import HomePage from './components/HomePage';
-import SignInPage from './components/SigninPage'
+import SignInPage from './components/SignInPage'
 import SavedEventsPage from './components/SavedEventsPage';
 import ProfilePage from './components/ProfilePage';
 import AddEventPage from './components/AddEventPage';
