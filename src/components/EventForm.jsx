@@ -19,7 +19,6 @@ export default function EventForm({ event, mode}) {
     const { profile } = useContext(ProfileContext);
     const [validated, setValidated] = useState(false);
     const navigate = useNavigate();    
-    console.log('mode is', mode);
     
     const [eventName, setEventName] = useState('');
     const [eventDate, setEventDate] = useState('');
@@ -73,7 +72,7 @@ export default function EventForm({ event, mode}) {
             } else {
                 postAdminEvent(eventData)
                 .then(({ event })=> {
-                    navigate(`/events/admin/${event.admin_event_id}`)
+                    // navigate(`/events/admin/${event.admin_event_id}`)
                 })
                 .catch(({ error }) => {
                     console.error(error);
