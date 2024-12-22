@@ -2,23 +2,21 @@ import './index.css'
 import './App.css'
 import { useState, useEffect } from 'react'
 import { monitorSupabaseSession } from './utils/monitorSupabaseSession'
-import { handleSignOut } from './utils/handleSignOut'
-import { addCurrentUserToPublicUserProfiles } from './utils/addCurrentUserToPublicUserProfiles'
+import initialiseGoogleApiClient from './utils/initialiseGoogleApiClient'
+import { SessionContext, ProfileContext, GoogleTokenContext } from './Contexts'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import HomePage from './components/HomePage';
-import ProfilePage from './components/ProfilePage';
-import SavedEventsPage from './components/SavedEventsPage';
-import AddEventPage from './components/AddEventPage';
-import NoPage from './components/NoPage';
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { SessionContext, ProfileContext, GoogleTokenContext } from './Contexts'
-import initialiseGoogleApiClient from './utils/initialiseGoogleApiClient'
-import EventPage from './components/EventPage'
 import SignInPage from './components/SigninPage'
+import SavedEventsPage from './components/SavedEventsPage';
+import ProfilePage from './components/ProfilePage';
+import AddEventPage from './components/AddEventPage';
+import EventPage from './components/EventPage'
 import EditEventPage from './components/EditEventPage'
+import NoPage from './components/NoPage';
 
-function App() {
+export default function App() {
   const [session, setSession] = useState(null)
   const [profile, setProfile] = useState(null)
   const [googleToken, setGoogleToken] = useState(null)
@@ -53,5 +51,3 @@ function App() {
     </>    
   )
 }
-
-export default App
