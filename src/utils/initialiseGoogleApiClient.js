@@ -16,7 +16,8 @@ export default function initialiseGoogleApiClient() {
             apiKey,
             client_id,
             discoveryDocs,
-            scope
+            scope,
+            redirect_uri: "https://whats-on.netlify.app"
         });
     }
 }
