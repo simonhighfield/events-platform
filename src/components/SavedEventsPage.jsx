@@ -29,7 +29,7 @@ export default function Login() {
             setIsLoading(true)
             fetchSavedEventsByUserId(profile.id)
             .then(({ savedEvents }) => {
-                return generateSavedEvents( savedEvents )                
+                return generateSavedEvents(savedEvents)                
             })
             .then((generatedEvents) => {
                 setEventsFound(generatedEvents)
@@ -44,6 +44,10 @@ export default function Login() {
 
     return (
         <main className='responsive-page-sizing'>
+            <h1>Saved Events</h1>
+            {!eventsFound || eventsFound.length === 0 &&
+                <p>Your saved events will show here</p>
+            }
             {isLoading
                 ? <Loading/>
                 : <EventsFeed events={eventsFound} />

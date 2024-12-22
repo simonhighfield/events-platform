@@ -126,7 +126,7 @@ export default function HomePage () {
 
     return (
         <main className='responsive-page-sizing'>
-            <h1>HomePage.jsx</h1>
+            <h1>Home</h1>
             <HelloProfile/>
             {isLoading
                 ? <Loading/>
