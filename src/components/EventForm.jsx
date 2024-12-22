@@ -12,6 +12,7 @@ import { getEventContributors } from './getEventContributors';
 import { convertDateToYYYYMMDD } from '../utils/convertDateToYYYYMMDD';
 import { getTimefromDateinHHMM } from '../utils/getTimefromDateinHHMM';
 import { updateAdminEvent } from '../utils/updateAdminEvent';
+import deleteAdminEventById from '../utils/deleteAdminEventById';
 
 export default function EventForm({ event, mode}) {
     const { profile } = useContext(ProfileContext);
@@ -84,7 +85,14 @@ export default function EventForm({ event, mode}) {
     function handleDelete (e) {
         const form = e.currentTarget;
         e.preventDefault();
-        console.log('delete!!!');
+
+        deleteAdminEventById(event.admin_event_id)
+        .then(({ event })=> {
+            navigate('/')
+        })
+        .catch(({ error }) => {
+            console.error(error);
+        })
     }
 
 
