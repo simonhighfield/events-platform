@@ -6,6 +6,7 @@
 
   /* 1rem = 10px */
   font-size: 62.5%;
+
 }
 
 .responsive-page-sizing {
@@ -29,6 +30,8 @@ body {
   min-height: 100vh;
   font-size: 16px;
   font-size: 1.6rem;
+  background-color: #f9feff;
+
 }
 
 .NavBar, .Footer {

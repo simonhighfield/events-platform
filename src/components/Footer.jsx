@@ -15,14 +15,14 @@ export default function Footer () {
 
             {profile && profile.is_admin ? 
                 <Nav.Item>
-                    <Link to={`add-event`}>add event</Link>
+                    <Link to={`add-event`}>Add Event</Link>
                 </Nav.Item>
             : 
                 null
             }
 
             <Nav.Item>
-                <Link to={`saved-events`}>saved events</Link>
+                <Link to={`saved-events`}>Saved Events</Link>
             </Nav.Item>
         </Nav>
     )

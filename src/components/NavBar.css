@@ -1,3 +1,11 @@
 .NavBar {
-    background-color: cadetblue;
+    background-color: #1c2d3e;
+}
+
+.NavBar a {
+    color: #fefff8
+}
+
+.NavBar a:hover {
+    color: silver
 }
