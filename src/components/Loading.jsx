@@ -5,7 +5,7 @@ export default function Loading() {
   return (
     <Container
       className="d-flex justify-content-center align-items-center"
-      style={{ height: '100%' }}
+      style={{ height: '40em' }}
     >
       <Spinner animation="border" role="status">
         <span className="visually-hidden">Loading...</span>
