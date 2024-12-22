@@ -13,7 +13,7 @@ import { convertDateToYYYYMMDD } from '../utils/convertDateToYYYYMMDD';
 import { getTimefromDateinHHMM } from '../utils/getTimefromDateinHHMM';
 import { updateAdminEvent } from '../utils/updateAdminEvent';
 
-export default function EventForm({ mode, event}) {
+export default function EventForm({ event, mode}) {
     const { profile } = useContext(ProfileContext);
     const [validated, setValidated] = useState(false);
     const navigate = useNavigate();    

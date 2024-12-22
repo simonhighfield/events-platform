@@ -35,8 +35,8 @@ export default function EditEventPage () {
             : <>
                 <h1>Edit event</h1>
                 <EventForm
-                    mode={'edit'}
                     event={event}
+                    mode={'edit'}
                     >
                 </EventForm>
             </>}
