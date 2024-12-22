@@ -19,6 +19,7 @@ export default function EventForm({ event, mode}) {
     const { profile } = useContext(ProfileContext);
     const [validated, setValidated] = useState(false);
     const navigate = useNavigate();    
+    console.log('mode is', mode);
     
     const [eventName, setEventName] = useState('');
     const [eventDate, setEventDate] = useState('');
@@ -62,13 +63,11 @@ export default function EventForm({ event, mode}) {
             
             if (mode === 'edit') {
                 eventData.admin_event_id = event.admin_event_id
-
                 updateAdminEvent(eventData)
-                postAdminEvent(eventData)
-                .then(({ event })=> {
+                .then(({ updatedEvent })=> {
                     navigate(`/events/admin/${event.admin_event_id}`)
                 })
-                .catch(({ error }) => {
+                .catch(( error ) => {
                     console.error(error);
                 })
             } else {

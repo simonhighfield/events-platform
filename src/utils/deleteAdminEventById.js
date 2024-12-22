@@ -7,6 +7,7 @@ export default async function deleteAdminEventById(eventId) {
     .eq('admin_event_id', eventId)
     .select();
   if (data) {
+    console.log('deleted', data[0] );
     return { deletedEvent : data[0]}
   }
   if (error) {

@@ -16,12 +16,12 @@ export async function updateAdminEvent(event) {
         })
         .eq('admin_event_id', admin_event_id)
         .select();
+
     if (data) {
-        const event = data[0]
-        return {event}
+        return {updatedEvent: data[0] }
     }
     if (error) {
-        console.error(error.error_description || error.message)
-        return error
+        console.error(error)
+        throw error
     }
 }
