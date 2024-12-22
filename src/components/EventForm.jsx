@@ -13,6 +13,7 @@ import { convertDateToYYYYMMDD } from '../utils/convertDateToYYYYMMDD';
 import { getTimefromDateinHHMM } from '../utils/getTimefromDateinHHMM';
 import { updateAdminEvent } from '../utils/updateAdminEvent';
 import deleteAdminEventById from '../utils/deleteAdminEventById';
+import LoadingButton from './LoadingButton';
 
 export default function EventForm({ event, mode}) {
     const { profile } = useContext(ProfileContext);
@@ -82,16 +83,14 @@ export default function EventForm({ event, mode}) {
         } 
     };
 
-    function handleDelete (e) {
-        const form = e.currentTarget;
-        e.preventDefault();
-
-        deleteAdminEventById(event.admin_event_id)
-        .then(({ event })=> {
+    async function handleDelete () {
+        await deleteAdminEventById(event.admin_event_id)
+        .then(({ deletedEvent })=> {
             navigate('/')
         })
         .catch(({ error }) => {
             console.error(error);
+            throw (error)
         })
     }
 
@@ -202,7 +201,7 @@ export default function EventForm({ event, mode}) {
                 >
                     Save Event
                 </Button>
-                { mode === 'edit' &&
+                {/* { mode === 'edit' &&
                     <Button
                         type="submit"
                         size="lg"
@@ -211,6 +210,14 @@ export default function EventForm({ event, mode}) {
                     >
                         Delete Event
                     </Button>
+                } */}
+                    { mode === 'edit' &&
+                   <LoadingButton
+                        asyncFunction={handleDelete}
+                        initialVariant='danger'
+                        initialText={'Delete event'}
+                        successText = {'Event deleted'}
+                   />
                 }
             </div>
         </Form>
