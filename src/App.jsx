@@ -16,6 +16,7 @@ import { SessionContext, ProfileContext, GoogleTokenContext } from './Contexts'
 import initialiseGoogleApiClient from './utils/initialiseGoogleApiClient'
 import EventPage from './components/EventPage'
 import SignInPage from './components/SigninPage'
+import EditEventPage from './components/EditEventPage'
 
 function App() {
   const [session, setSession] = useState(null)
@@ -41,6 +42,7 @@ function App() {
             <Route path="saved-events" element={<SavedEventsPage/>} />
             <Route path="add-event" element={<AddEventPage/>} />
             <Route path='/events/:eventSource/:eventId' element={<EventPage/>} />
+            <Route path='/events/:eventSource/:eventId/edit' element={<EditEventPage/>} />
             <Route path="*" element={<NoPage/>} />
           </Routes>
           <Footer/>

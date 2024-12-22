@@ -26,6 +26,7 @@ import connectGoogleAccount from '../utils/connectGoogleAccount'
 export default function EventPage () {
     const { eventSource, eventId } = useParams();
     const [isLoading, setIsLoading] = useState(true)
+    const [isEditing, setIsEditing] = useState(true)
     const [event, setEvent] = useState({})
     const [eventDate, setEventDate] = useState(null)
     const { profile } = useContext(ProfileContext)    
@@ -123,6 +124,10 @@ export default function EventPage () {
         navigate('/sign-in', {state: {previousUrl: location.pathname}});
     }   
 
+    function handleEdit() {
+        navigate(`/events/admin/${event.admin_event_id}/edit`);
+    }
+
     return(   
         <main className='responsive-page-sizing'>
             {isLoading 
@@ -176,6 +181,15 @@ export default function EventPage () {
                                             args={[event]}
                                             initialText={'Add to Google Calendar'}
                                         />
+                                    }
+                                    {profile.is_admin && eventSource === 'admin' &&
+                                        <Button
+                                            onClick={handleEdit}
+                                            variant="primary"
+                                            size="lg"
+                                        >
+                                            Edit event
+                                        </Button> 
                                     }
                                 </>
                             }
