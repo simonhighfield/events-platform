@@ -50,32 +50,4 @@ export default function ProfilePage () {
       </div>
     </main>
   )
-    
-
-
-  // return (
-  //   <main className='responsive-page-sizing'>
-  //     <HelloProfile/>
-  //     {!session
-  //       ?
-  //         <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} providers={[]}/>
-  //       :
-  //         <div className="d-grid gap-2">
-  //           <LoadingButton
-  //             asyncFunction={handleGoogleSignIn}
-  //             initialVariant='success'
-  //             initialText={'Connect Google Calendar'}
-  //             successText = {'Google Calendar connected'}
-  //           />
-  //           <Button
-  //             onClick={handleSignOut}
-  //             variant="danger"
-  //             size="lg"
-  //           >
-  //             Sign out
-  //           </Button>
-  //         </div>
-  //     }
-  //   </main>
-  //   )
 }
