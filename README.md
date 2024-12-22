@@ -179,9 +179,9 @@ Instructions from the [Netlify guide](https://docs.netlify.com/frameworks/vite/)
 # Future Work
 There's a whole Kanban board of ideas waiting to be done ... but a few key ideas:
 * Lots of refactoring!
+* Admins can invite others to become admins.
 * Table creation and seeding from the command line
 * OAuth Social login
 * Display and edit profile information
 * A search interface allowing to change search paramters?
 * A possible rediesn of the app's purpose. Perhaps instead of fetching a search from Skiddle, it could fetch only skiddle events curated by admins. This might require a table called curated_events that saves the skiddle ids. This makes the app's purposse to only show a choice events to cut rhough the nosie.
-
