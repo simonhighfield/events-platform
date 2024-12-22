@@ -8,7 +8,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import { getDateAsObject } from '../utils/getDateAsObject';
 import { useNavigate } from 'react-router-dom';
-import { getEventContributors } from './getEventContributors';
+import { getEventContributors } from '../utils/getEventContributors';
 import { convertDateToYYYYMMDD } from '../utils/convertDateToYYYYMMDD';
 import { getTimefromDateinHHMM } from '../utils/getTimefromDateinHHMM';
 import { updateAdminEvent } from '../utils/updateAdminEvent';
@@ -72,7 +72,7 @@ export default function EventForm({ event, mode}) {
             } else {
                 postAdminEvent(eventData)
                 .then(({ event })=> {
-                    // navigate(`/events/admin/${event.admin_event_id}`)
+                    navigate(`/events/admin/${event.admin_event_id}`)
                 })
                 .catch(({ error }) => {
                     console.error(error);

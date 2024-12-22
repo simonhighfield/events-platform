@@ -10,7 +10,7 @@ import fetchAdminEventById from '../utils/fetchAdminEventById';
 import formatSkiddleEvent from '../utils/formatSkiddleEvent';
 import Loading from './Loading';
 import { getTimefromDateinHHMM } from '../utils/getTimefromDateinHHMM';
-import { getEventContributors } from './getEventContributors';
+import { getEventContributors } from '../utils/getEventContributors';
 import { addEventToGoogleCalendar } from '../utils/addEventToGoogleCalendar';
 import LoadingButton from './LoadingButton';
 import paramsForTestAdminEvent from '../data/paramsForTestAdminEvent';
