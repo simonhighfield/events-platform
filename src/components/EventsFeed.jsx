@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button';
 import { convertDateToYYYYMMDD } from '../utils/convertDateToYYYYMMDD';
 import { Link } from 'react-router-dom';
 import getEventId from '../utils/getEventId';
-import { calcNumColsFromNumOfEvents } from './calcNumColsFromNumOfEvents';
+import { calcNumOfColsFromNumOfEvents } from '../utils/calcNumOfColsFromNumOfEvents';
 import { getEventSource } from '../utils/getEventSource';
 
 export default function EventsFeed ({ events }) {
@@ -16,7 +16,7 @@ export default function EventsFeed ({ events }) {
 
     return (
       <>
-        <Row xs={1} md={calcNumColsFromNumOfEvents(events)} className="g-4">
+        <Row xs={1} md={calcNumOfColsFromNumOfEvents(events)} className="g-4">
           {events.map((event, idx) => {
             const eventSource = getEventSource(event)
             const eventId = getEventId(event)
