@@ -17,7 +17,7 @@ export default function HomePage () {
         .then(({ events }) => {
             setEventsFound(events)
         })
-        .catch(({error}) => {
+        .catch((error) => {
         })
         .finally(() => {
             setIsLoading(false)
