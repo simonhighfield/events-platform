@@ -14,6 +14,8 @@ import { getEventSource } from '../utils/getEventSource';
 export default function EventsFeed ({ events }) {
   const { session } = useContext(SessionContext);  
 
+    
+
     return (
       <>
         <Row xs={1} md={calcNumOfColsFromNumOfEvents(events)} className="g-4">
