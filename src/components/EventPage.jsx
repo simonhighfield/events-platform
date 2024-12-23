@@ -72,7 +72,9 @@ export default function EventPage () {
                 const formattedDate = convertDateToYYYYMMDD(formattedEvent.event_date)
                 setEventDate(formattedDate)
             })
-            .catch(({error}) => {
+            .catch((error) => {
+                console.log('ploblem');
+                
             })
             .finally(() => {
                 setIsLoading(false)

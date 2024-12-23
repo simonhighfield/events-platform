@@ -34,7 +34,7 @@ export default function Login() {
             .then((generatedEvents) => {
                 setEventsFound(generatedEvents)
             })
-            .catch(({error}) => {
+            .catch((error) => {                
             })
             .finally(() => {
                 setIsLoading(false)

@@ -19,7 +19,7 @@ export function generateSavedEvents(savedEvents) {
                 return formatSkiddleEvent(event)
             }
             if (error) {
-                throw {error};
+                throw error;
             }
         }
         return null;

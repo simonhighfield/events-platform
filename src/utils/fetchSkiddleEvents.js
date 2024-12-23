@@ -19,11 +19,7 @@ export default function fetchSkiddleEvents ({ latitude, longitude, radius, limit
         return {skiddleEvents: data.results}
     })
     .catch((error) => {        
-        const formattedError = formatSkiddleError(error.response.data)
-
-        const message = 'Error fetching skiddle events: ' + formattedError.message
-        console.error(message)
-                
-        throw(formattedError)
+        console.error('error fetching Skiddle events: ' + error.response.data.errormessage)
+        throw formatSkiddleError(error.response.data)
     });
 }
