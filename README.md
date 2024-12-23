@@ -149,7 +149,7 @@ Apply for a skiddle API token, and add into .env:
 <br>
 
 
-You will require a google account. A guide on setting up the Google environment is available [here](https://developers.google.com/calendar/api/quickstart/js). Enable the API, configure the OAuth consent screen, and authorise credentials for a web application. The URL's you should authorise are http://localhost:5173/ (for local testing) and your production URL when available. Add the following tokens into .env:
+You will require a google account. A guide on setting up the Google environment is available [here](https://developers.google.com/calendar/api/quickstart/js). Enable the API, configure the OAuth consent screen, and authorise credentials for a web application. The URL's you should authorise are http://localhost:5173/ (for local testing) and your production URL when available. The client ID for local host must be added to your .env file; the client ID for the hosted version must be entered on Render. Add the following tokens into .env:
     
     VITE_GOOGLE_CAL_API_KEY =
     VITE_GOOGLE_CAL_CLIENT_ID =
@@ -178,6 +178,16 @@ Instructions from the [Netlify guide](https://docs.netlify.com/frameworks/vite/)
 
     If you used continuous deployment, your site is now published! To learn how to manually deploy a site, check out the manual deploy docs.
 
+
+Add the environmental variables to Render.:
+        
+    https://app.netlify.com/sites/YOUR SITE NAME/configuration/env#content
+<br>
+
+Remember to that you must use the Google Client ID associated with your hosted URL and not the local host. If this is the first time that you have your domain, enter the domain name into the Google Cloud console under OAuth 2.0 Client IDs.
+
+    https://console.cloud.google.com/apis/credentials?YOUR PROJECT SLUG
+<br>
 
 # Future Work
 There's a whole Kanban board of ideas waiting to be done ... but a few key ideas:
