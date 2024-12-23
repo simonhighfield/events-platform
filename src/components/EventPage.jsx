@@ -1,3 +1,4 @@
+"use client";
 import { useContext, useEffect, useState } from 'react'
 import { GoogleTokenContext, ProfileContext, SessionContext } from '../Contexts'
 import Card from 'react-bootstrap/Card';
@@ -21,6 +22,8 @@ import fetchSavedEventsByUserId from '../utils/fetchSavedEventsByUserId';
 import getEventId from '../utils/getEventId';
 import deleteAdminEventById from '../utils/deleteAdminEventById';
 import connectGoogleAccount from '../utils/connectGoogleAccount'
+import { ErrorBoundary } from "react-error-boundary";
+import Fallback from './Fallback.jsx';
 
 
 export default function EventPage () {
@@ -132,6 +135,8 @@ export default function EventPage () {
 
     return(   
         <main className='responsive-page-sizing'>
+            <ErrorBoundary FallbackComponent={Fallback}>
+            
             {isLoading 
                 ? <Loading/>
                 : <Card>
@@ -221,6 +226,7 @@ export default function EventPage () {
                     </ListGroup>
                 </Card> 
             }
+            </ErrorBoundary>
         </main>
     )
 }
