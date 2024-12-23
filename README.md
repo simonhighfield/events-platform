@@ -180,7 +180,17 @@ Instructions from the [Netlify guide](https://docs.netlify.com/frameworks/vite/)
     If you used continuous deployment, your site is now published! To learn how to manually deploy a site, check out the manual deploy docs.
 
 
-Add the environmental variables to Render.:
+In the netlify.toml uncomment the code block as instructed. This enables succesful URL navigation of your single page app:
+
+    ## Uncomment to use this redirect for Single Page Applications like create-react-app.
+    ## Not needed for static site generators.
+        [[redirects]]
+        from = "/*"
+        to = "/index.html"
+        status = 200
+
+
+Add the environmental variables to Netlify:
         
     https://app.netlify.com/sites/YOUR SITE NAME/configuration/env#content
 <br>
