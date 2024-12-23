@@ -9,6 +9,7 @@ export default async function fetchAdminEventsByDate(date) {
         return { events: data }
     }
     if (error) {
-        throw { error }
+        console.error('Error fetching admin event by Date: ' + error.message)
+        throw error
     }
 }

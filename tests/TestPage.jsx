@@ -30,7 +30,7 @@ export default function TestPage () {
         .then(({ events }) => {
             setEventsFound(events)
         })
-        .catch(({error}) => {
+        .catch((erro}) => {
         })
         .finally(() => {
             setIsLoading(false)
@@ -57,7 +57,7 @@ export default function TestPage () {
             .then(({ adminEvents }) => {
                 console.log(adminEvents);
             })
-            .catch(({ error }) => {
+            .catch((error) => {
                 console.log(error);
             })
         })
@@ -79,12 +79,12 @@ export default function TestPage () {
                     console.log('generatedEvents: ', generatedEvents)
                     console.log('deleted saved event: ', deletedEvent);
                 })
-                .catch(({ error }) => {
+                .catch((error) => {
                     console.log(error.message);
                 })
             })
         })
-        .catch(({ error }) => {
+        .catch((error) => {
             console.log(error);
         })
     }
@@ -94,7 +94,7 @@ export default function TestPage () {
         .then(({ savedEvent }) => {
             console.log('successfully saved: ', savedEvent);
         })
-        .catch(({ error }) => {
+        .catch((error) => {
             console.log(error);
         })
     }
@@ -107,7 +107,7 @@ export default function TestPage () {
     //     .then (( { deletedEvent }) => {
     //         console.log('deleted saved event: ', deletedEvent);
     //     })
-    //     .catch(({ error }) => {
+    //     .catch((error) => {
     //         console.log(error.message);
     //     })
     // }

@@ -11,7 +11,7 @@ export function generateSavedEvents(savedEvents) {
                 return event;
             }
             if (error) {
-                throw {error};
+                throw error;
             }
         } else if (savedEvent.source === 'skiddle') {
             const { event, error } = await fetchSkiddleEventById(savedEvent.skiddle_event_id)            

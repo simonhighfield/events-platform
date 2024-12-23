@@ -13,6 +13,7 @@ export default async function deleteSavedEventById(savedEventId) {
     }
   }
   catch (error) {
+    console.error('Error deleting saved event by ID: ' + error.message)
     throw error
   }
 }

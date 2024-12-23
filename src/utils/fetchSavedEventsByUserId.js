@@ -10,6 +10,6 @@ export default async function fetchSavedEventsByUserId(userId) {
         return { savedEvents: data }
     }
     if (error) {
-        throw { error }
+        throw error
     }
 }
