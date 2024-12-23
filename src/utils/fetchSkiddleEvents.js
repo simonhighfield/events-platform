@@ -21,6 +21,6 @@ export default function fetchSkiddleEvents ({ latitude, longitude, radius, limit
         const errorMessage = 'Error fetching skiddle events: ' + error.response.data.errormessage
         console.error(errorMessage)
         
-        throw(errorMessage)
+        throw({error: errorMessage})
     });
 }
