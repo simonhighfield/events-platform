@@ -1,4 +1,5 @@
 import axios from "axios";
+import formatSkiddleError from "./formatSkiddleError";
 
 export default function fetchSkiddleEvents ({ latitude, longitude, radius, limit, eventcode }) {
     const skiddleApiKey = import.meta.env.VITE_SKIDDLE_KEY
@@ -17,10 +18,12 @@ export default function fetchSkiddleEvents ({ latitude, longitude, radius, limit
     .then(({ data }) => {
         return {skiddleEvents: data.results}
     })
-    .catch((error) => {
-        const message = 'Error fetching skiddle events: ' + error.response.data.errormessage
+    .catch((error) => {        
+        const formattedError = formatSkiddleError(error.response.data)
+
+        const message = 'Error fetching skiddle events: ' + formattedError.message
         console.error(message)
-        
-        throw({message})
+                
+        throw(formattedError)
     });
 }

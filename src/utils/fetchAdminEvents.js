@@ -18,6 +18,9 @@ export default async function fetchAdminEvents(startDate, endDate, limit) {
         return { adminEvents: data }
     }
     if (error) {
+        const message = 'Error fetching admin events: ' + error.message
+        console.error(message)
+
         throw error 
     }
 }
