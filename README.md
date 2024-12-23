@@ -15,6 +15,7 @@ Watch a demo [here(]https://youtu.be/HnqgFrrq5fM)
 * Connect account and save events to calendar using [Google Calendar API](https://developers.google.com/calendar/api/guides/overview)
 * Components like nav bars, cards, buttons, and forms from [React Bootstrap](https://react-bootstrap.netlify.app/)
 * URLs designed with [React Router](https://reactrouter.com/)
+* Displaying Fallback components in case of errors with [react-error-boundary](https://www.npmjs.com/package/react-error-boundary)
 
 # Links
 * GitHub: https://github.com/simonhighfield/events-platform
