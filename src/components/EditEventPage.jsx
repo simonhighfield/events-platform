@@ -19,7 +19,7 @@ export default function EditEventPage () {
                 const formattedDate = convertDateToYYYYMMDD(event.event_date)
                 setEventDate(formattedDate)
             })
-            .catch(({error}) => {
+            .catch((error) => {
             })
             .finally(() => {
                 setIsLoading(false)

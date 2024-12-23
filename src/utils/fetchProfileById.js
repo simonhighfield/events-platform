@@ -6,7 +6,8 @@ export default function fetchProfileById(id) {
         
     return profile
   })
-  .catch(({ error }) => {
-    console.log('error fetching profile: ', error);
+  .catch((error) => {
+    console.log('Error fetching profile: ', error.message);
+    throw error
   });
 }

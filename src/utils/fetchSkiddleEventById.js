@@ -1,4 +1,5 @@
 import axios from "axios";
+import formatSkiddleError from "./formatSkiddleError";
 
 export default function fetchSkiddleEventById (id) {
     const skiddleApiKey = import.meta.env.VITE_SKIDDLE_KEY
@@ -8,7 +9,7 @@ export default function fetchSkiddleEventById (id) {
         return {event: data.results}
     })
     .catch((error) => {
-        console.error('error fetching Skiddle event by ID: ', error.response.data.errormessage)
-        throw {error}
+        console.error('error fetching Skiddle event by ID: ' + error.response.data.errormessage)
+        throw formatSkiddleError(error.response.data)
     });
 }

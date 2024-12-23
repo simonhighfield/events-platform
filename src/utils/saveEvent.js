@@ -16,7 +16,7 @@ export default async function saveEvent(profile, event) {
         return { savedEvent: data[0] }
     }
     if (error) {
-        throw { error }
+        throw error
     }
 }
 

@@ -66,7 +66,7 @@ export default function EventForm({ event, mode}) {
                 .then(({ updatedEvent })=> {
                     navigate(`/events/admin/${event.admin_event_id}`)
                 })
-                .catch(( error ) => {
+                .catch((error) => {
                     console.error(error);
                 })
             } else {
@@ -74,7 +74,7 @@ export default function EventForm({ event, mode}) {
                 .then(({ event })=> {
                     navigate(`/events/admin/${event.admin_event_id}`)
                 })
-                .catch(({ error }) => {
+                .catch((error) => {
                     console.error(error);
                 })
             }
@@ -86,9 +86,9 @@ export default function EventForm({ event, mode}) {
         .then(({ deletedEvent })=> {
             navigate('/')
         })
-        .catch(({ error }) => {
+        .catch((error) => {
             console.error(error);
-            throw (error)
+            throw error
         })
     }
 

@@ -11,6 +11,7 @@ export default async function deleteAdminEventById(eventId) {
     return { deletedEvent : data[0]}
   }
   if (error) {
-    throw {error}
+    console.error('Error deleting admin event by ID: ' + error.message)
+    throw error
   }
 }

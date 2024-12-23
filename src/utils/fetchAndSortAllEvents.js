@@ -10,6 +10,7 @@ export default function fetchAndSortAllEvents(skiddleSearchParameters) {
         fetchAdminEvents()
     ])
     .then(([{ skiddleEvents }, { adminEvents}]) => {
+
         const events = [...formatSkiddleEvents(skiddleEvents),...adminEvents]
 
         const sortedEvents = sortEventsByDate(events)

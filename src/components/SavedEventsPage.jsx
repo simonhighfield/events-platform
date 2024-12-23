@@ -1,14 +1,13 @@
-import { supabase } from "../utils/supabaseClient"
-import { Auth } from "@supabase/auth-ui-react"
-import { ThemeSupa } from '@supabase/auth-ui-shared'
+"use client";
 import { useContext, useEffect, useState } from "react"
 import { ProfileContext, SessionContext } from "../Contexts"
+import { useLocation, useNavigate } from "react-router-dom"
 import fetchSavedEventsByUserId from "../utils/fetchSavedEventsByUserId"
+import { generateSavedEvents } from "../utils/generateSavedEvents"
 import Loading from "./Loading"
 import EventsFeed from "./EventsFeed"
-import { generateSavedEvents } from "../utils/generateSavedEvents"
-import HelloProfile from "./HelloProfile"
-import { useLocation, useNavigate } from "react-router-dom"
+import { ErrorBoundary } from "react-error-boundary";
+import Fallback from './Fallback.jsx';
 
 export default function Login() {
     const { profile } = useContext(ProfileContext)
@@ -34,7 +33,7 @@ export default function Login() {
             .then((generatedEvents) => {
                 setEventsFound(generatedEvents)
             })
-            .catch(({error}) => {
+            .catch((error) => {                
             })
             .finally(() => {
                 setIsLoading(false)
@@ -45,13 +44,15 @@ export default function Login() {
     return (
         <main className='responsive-page-sizing'>
             <h1>Saved Events</h1>
-            {!eventsFound || eventsFound.length === 0 &&
-                <p>Your saved events will show here</p>
-            }
-            {isLoading
-                ? <Loading/>
-                : <EventsFeed events={eventsFound} />
-            }
+            <ErrorBoundary FallbackComponent={Fallback}>
+                {!eventsFound || eventsFound.length === 0 &&
+                    <p>Your saved events will show here</p>
+                }
+                {isLoading
+                    ? <Loading/>
+                    : <EventsFeed events={eventsFound} />
+                }
+            </ErrorBoundary>
         </main>
     )
 }

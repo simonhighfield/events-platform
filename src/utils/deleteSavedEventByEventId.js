@@ -12,6 +12,6 @@ export default async function deleteSavedEventById(savedEventId) {
 //     return { deletedEvent : data[0]}
 //   }
 //   if (error) {
-//     throw {error}
+//     throw error
 //   }
 } 
