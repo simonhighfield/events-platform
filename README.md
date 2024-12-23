@@ -4,6 +4,8 @@ This is a full-stack repository for the [WhatsOn](https://whats-on.netlify.app/)
 The app allows users to browse electronic music events in Manchester. These events are populated from events on Skiddle, and events created by admin users. If users create an account, they can save events for later, and add them to their Google calendars.
 Admin users have the ability to create, manage, and delete events.
 
+Watch a demo [here(]https://youtu.be/HnqgFrrq5fM)
+
 # Tech Stack
 * PSQL database stored on Supabase Database
 * React app built with the Vite scaffold
@@ -17,6 +19,7 @@ Admin users have the ability to create, manage, and delete events.
 # Links
 * GitHub: https://github.com/simonhighfield/events-platform
 * Hosted: https://whats-on.netlify.app/
+* Demo: https://youtu.be/HnqgFrrq5fM
 
 
 # Folder Structure
