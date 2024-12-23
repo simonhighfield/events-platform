@@ -12,14 +12,14 @@ export default function fetchAndSortAllEvents(skiddleSearchParameters) {
     .then(([{ skiddleEvents }, { adminEvents}]) => {
 
 
-        const events = []
-        if (skiddleEvents && skiddleEvents.length > 0) {
-            events = [...formatSkiddleEvents(skiddleEvents)]
-        }
-        if (adminEVents && adminEvents.length > 0) {
-            events = [...events,...adminEvents]
-        }
-        // const events = [...formatSkiddleEvents(skiddleEvents),...adminEvents]
+        // const events = []
+        // if (skiddleEvents && skiddleEvents.length > 0) {
+        //     events = [...formatSkiddleEvents(skiddleEvents)]
+        // }
+        // if (adminEVents && adminEvents.length > 0) {
+        //     events = [...events,...adminEvents]
+        // }
+        const events = [...formatSkiddleEvents(skiddleEvents),...adminEvents]
 
         const sortedEvents = sortEventsByDate(events)
 
