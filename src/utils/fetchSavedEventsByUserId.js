@@ -10,6 +10,7 @@ export default async function fetchSavedEventsByUserId(userId) {
         return { savedEvents: data }
     }
     if (error) {
+        console.error('Error fetching saved events by user ID: ' + error.message)
         throw error
     }
 }

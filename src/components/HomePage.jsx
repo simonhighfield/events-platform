@@ -2,9 +2,9 @@
 import { useEffect, useState } from 'react'
 import fetchAndSortAllEvents from '../utils/fetchAndSortAllEvents.js';
 import skiddleParamsForClubEventsInManchester from '../data/skiddleParamsForClubEventsInManchester';
+import HelloProfile from './HelloProfile.jsx';
 import EventsFeed from './EventsFeed.jsx';
 import Loading from './Loading.jsx';
-import HelloProfile from './HelloProfile.jsx';
 import { ErrorBoundary } from "react-error-boundary";
 import Fallback from './Fallback.jsx';
 
@@ -26,8 +26,8 @@ export default function HomePage () {
 
     return (
         <main className='responsive-page-sizing'>
+            <h1>Home</h1>
             <ErrorBoundary FallbackComponent={Fallback}>
-                <h1>Home</h1>
                 <HelloProfile/>
                 {isLoading
                     ? <Loading/>
