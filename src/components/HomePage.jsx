@@ -20,6 +20,7 @@ export default function HomePage () {
         .catch(({error}) => {
         })
         .finally(() => {
+            setIsLoading(false)
         })
     }, [])
 
